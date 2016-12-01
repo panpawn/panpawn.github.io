@@ -63,7 +63,8 @@
         if (!answer) return false;
         let reply = '';
         if (answer === 'Good') {
-            reply = "That's nice to hear :)";
+            var goodReplies = ["That's nice to hear :)", "Awesome :)", "That's good :)"];
+            reply = goodReplies[Math.floor(Math.random() * goodReplies.length)];
         } else {
             reply = "<p>D'aww, do you think playing some rock-paper-scissors will cheer you up?</p>";
             reply += '<button onclick="question2(\'Yes\')">Yes</button> <button onclick="question2(\'No\')">No</button>';
