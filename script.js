@@ -6,7 +6,7 @@ function howRu(answer) { // asks how user is doing
 	if (!answer) return false;
 	var reply = '';
 	if (answer === 'Good') {
-		var goodReplies = ["That's nice to hear", "Awesome", "That's good", "Great", "That's swell", "Glad to hear it"];
+		var goodReplies = ['That\'s nice to hear', 'Awesome', 'That\'s good', 'Great', 'That\'s swell', 'Glad to hear it', 'I\'m happy for you'];
 		reply = goodReplies[Math.floor(Math.random() * goodReplies.length)] + ' <i class="fa fa-smile-o" aria-hidden="true"></i>';
 	} else {
 		reply = "<p>D'aww.. I have an idea <i class=\"fa fa-exclamation\" aria-hidden=\"true\"></i> do you think playing some rock-paper-scissors will cheer you up?</p>";
@@ -38,16 +38,22 @@ function rps(response) { // plays game
 		tied++;
 	}
 	var winnings = {
-		// this beats this
-		'Rock': 'Scissors',
-		'Paper': 'Rock',
-		'Scissors': 'Paper',
+		'Rock': {
+			beats: 'Scissors',
+			txt: ' crushes ',
+		}, 'Paper': {
+			beats: 'Rock',
+			txt: ' covers ',
+		}, 'Scissors': {
+			beats: 'Paper',
+			txt: ' cuts ',
+		},
 	};
-	if (winnings[response] !== cpu && !tie) {
-		output += 'You lost! I chose ' + cpu + '! <i class="fa fa-smile-o" aria-hidden="true"></i>';
+	if (winnings[response].beats !== cpu && !tie) {
+		output += 'You lost! I chose ' + cpu + ', and ' + cpu + winnings[cpu].txt + response + '! <i class="fa fa-smile-o" aria-hidden="true"></i>';
 		lost++;
-	} else if (winnings[response] === cpu && !tie) {
-		output += 'You won! I chose ' + cpu + '! <i class="fa fa-frown-o" aria-hidden="true"></i>';
+	} else if (winnings[response].beats === cpu && !tie) {
+		output += 'You won! I chose ' + cpu + ', but ' + response + winnings[response].txt + cpu + '! <i class="fa fa-frown-o" aria-hidden="true"></i>';
 		won++;
 	}
 	playAgain();
