@@ -67,10 +67,10 @@
         if (!answer) return false;
         var reply = '';
         if (answer === 'Good') {
-            var goodReplies = ["That's nice to hear :)", "Awesome :)", "That's good :)"];
-            reply = goodReplies[Math.floor(Math.random() * goodReplies.length)];
+            var goodReplies = ["That's nice to hear", "Awesome", "That's good", "Great"];
+            reply = goodReplies[Math.floor(Math.random() * goodReplies.length)] + ' <i class="fa fa-smile-o" aria-hidden="true"></i>';
         } else {
-            reply = "<p>D'aww, do you think playing some rock-paper-scissors will cheer you up?</p>";
+            reply = "<p>D'aww.. I have an idea <i class=\"fa fa-exclamation\" aria-hidden=\"true\"></i> do you think playing some rock-paper-scissors will cheer you up?</p>";
             reply += '<button onclick="question2(\'Yes\')">Yes</button> <button onclick="question2(\'No\')">No</button>';
         }
         return document.getElementById("reply").innerHTML = reply;
@@ -92,7 +92,7 @@
         var options = ['Rock', 'Paper', 'Scissors'];
         var cpu = options[Math.floor(Math.random() * options.length)];
         if (response === cpu) {
-            output = 'Tie, we both picked ' + response + ' :|';
+            output = 'Tie, we both picked ' + response + '. <i class="fa fa-handshake-o" aria-hidden="true"></i>';
             tie = true;
             tied++;
         }
@@ -103,10 +103,10 @@
             'Scissors': 'Paper',
         };
         if (winnings[response] !== cpu && !tie) {
-           output += 'You lost! I chose ' + cpu + '! :D';
+           output += 'You lost! I chose ' + cpu + '! <i class="fa fa-smile-o" aria-hidden="true"></i>';
            lost++;
         } else if (winnings[response] === cpu && !tie) {
-            output += 'You won! I chose ' + cpu + '! D:';
+            output += 'You won! I chose ' + cpu + '! <i class="fa fa-frown-o" aria-hidden="true"></i>';
             won++;
         }
         playAgain();
@@ -127,10 +127,11 @@
        <p>My <a href="resume.pdf" target="_blank">résumé</a> will probably give you a good idea of some of the more important stuff that I've worked on as well as my technical abilities.</p>
        <p id="question">Anyways, enough about me. How is your day going so far?</p>
        <div id="buttons">
-            <button onclick="howRu('Good')">Good :)</button> <button onclick="howRu('Bad')">Bad :(</button>
+            <button onclick="howRu('Good')">Good <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button> <button onclick="howRu('Bad')">Bad <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+</button>
         </div>
        <p id="reply"></p>
     </div>
-    <div class="footer">© Jeremy Piemonte 2016</div>
+    <div class="footer"><i class="fa fa-copyright" aria-hidden="true"></i> Jeremy Piemonte 2016</div>
 </body>
 </html>
