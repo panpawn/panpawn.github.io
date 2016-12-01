@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>panpawn</title>
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
     <style>
         .header {
             color: #FF9933;
@@ -59,7 +60,10 @@
         }
     </style>
     <script type="text/javascript">
-    function howRu(answer) {
+    var won = 0;
+    var lost = 0;
+    var tied = 0;
+    function howRu(answer) { // asks how user is doing
         if (!answer) return false;
         var reply = '';
         if (answer === 'Good') {
@@ -71,25 +75,26 @@
         }
         return document.getElementById("reply").innerHTML = reply;
     }
-    function question2(answer) {
+    function question2(answer) { // answer to if they want to play rps
         if (!answer) return false;
         var reply = '';
         if (answer === 'Yes') {
-            reply = 'Okay, pick: <button onclick="rps(\'Rock\')">Rock</button> <button onclick="rps(\'Paper\')">Paper</button> <button onclick="rps(\'Scissors\')">Scissors</button>'; 
+            reply = 'Okay, pick: <button onclick="rps(\'Rock\')"><i class="fa fa-hand-rock-o"></i> Rock</button> <button onclick="rps(\'Paper\')"><i class="fa fa-hand-paper-o"></i> Paper</button> <button onclick="rps(\'Scissors\')"><i class="fa fa-hand-scissors-o"></i> Scissors</button>'; 
         } else if (answer === 'No') {
             reply = 'Alrighty then /o/';
         }
         return document.getElementById("reply").innerHTML = reply;
     }
-    function rps(response) {
+    function rps(response) { // plays game
         if (!response) return false;
         var output = '';
         var tie = false;
         var options = ['Rock', 'Paper', 'Scissors'];
         var cpu = options[Math.floor(Math.random() * options.length)];
         if (response === cpu) {
-            output = 'We both picked ' + response + ' :|';
+            output = 'Tie, we both picked ' + response + ' :|';
             tie = true;
+            tied++;
         }
         var winnings = {
             // this beats this
@@ -99,14 +104,16 @@
         };
         if (winnings[response] !== cpu && !tie) {
            output += 'You lost! I chose ' + cpu + '! :D';
+           lost++;
         } else if (winnings[response] === cpu && !tie) {
             output += 'You won! I chose ' + cpu + '! D:';
+            won++;
         }
         playAgain();
         return document.getElementById("reply").innerHTML = output; 
     }
-    function playAgain() {
-        document.getElementById("question").innerHTML = 'Wanna play again?';
+    function playAgain() { // generates HTML prompting if user wants to play again
+        document.getElementById("question").innerHTML = 'Wanna play again?<p style="text-align: right;">W: ' + won + ' | L: ' + lost + ' | T: ' + tied + '</p>';
         document.getElementById("buttons").innerHTML = '<button onclick="question2(\'Yes\')">Yes</button> ';
         document.getElementById("buttons").innerHTML += '<button onclick="question2(\'No\')">No</button>'
     }
