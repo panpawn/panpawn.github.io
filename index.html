@@ -61,7 +61,7 @@
     <script type="text/javascript">
     function howRu(answer) {
         if (!answer) return false;
-        let reply = '';
+        var reply = '';
         if (answer === 'Good') {
             var goodReplies = ["That's nice to hear :)", "Awesome :)", "That's good :)"];
             reply = goodReplies[Math.floor(Math.random() * goodReplies.length)];
