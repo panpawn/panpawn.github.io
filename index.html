@@ -65,7 +65,7 @@
         if (answer === 'Good') {
             reply = "That's nice to hear :)";
         } else {
-            reply = "<p>D'aww, do you think playing some rock-paper-scizors will cheer you up?</p>";
+            reply = "<p>D'aww, do you think playing some rock-paper-scissors will cheer you up?</p>";
             reply += '<button onclick="question2(\'Yes\')">Yes</button> <button onclick="question2(\'No\')">No</button>';
         }
         return document.getElementById("reply").innerHTML = reply;
@@ -74,7 +74,7 @@
         if (!answer) return false;
         var reply = '';
         if (answer === 'Yes') {
-            reply = 'Okay, pick: <button onclick="rps(\'Rock\')">Rock</button> <button onclick="rps(\'Paper\')">Paper</button> <button onclick="rps(\'Scizors\')">Scizors</button>'; 
+            reply = 'Okay, pick: <button onclick="rps(\'Rock\')">Rock</button> <button onclick="rps(\'Paper\')">Paper</button> <button onclick="rps(\'Scissors\')">Scissors</button>'; 
         } else if (answer === 'No') {
             reply = 'Alrighty then /o/';
         }
@@ -84,16 +84,17 @@
         if (!response) return false;
         var output = '';
         var tie = false;
-        var options = ['Rock', 'Paper', 'Scizors'];
+        var options = ['Rock', 'Paper', 'Scissors'];
         var cpu = options[Math.floor(Math.random() * options.length)];
         if (response === cpu) {
             output = 'We both picked ' + response + ' :|';
             tie = true;
         }
         var winnings = {
-            'Rock': 'Scizors',
+            // this beats this
+            'Rock': 'Scissors',
             'Paper': 'Rock',
-            'Scizors': 'Paper',
+            'Scissors': 'Paper',
         };
         if (winnings[response] !== cpu && !tie) {
            output += 'You lost! I chose ' + cpu + '! :D';
