@@ -100,7 +100,7 @@
         if (winnings[response] !== cpu && !tie) {
            output += 'You lost! I chose ' + cpu + '! :D';
         } else if (winnings[response] === cpu && !tie) {
-            output += 'NOOO, HACKER! You won, I chose ' + cpu + '! D:';
+            output += 'You won! I chose ' + cpu + '! D:';
         }
         playAgain();
         return document.getElementById("reply").innerHTML = output; 
