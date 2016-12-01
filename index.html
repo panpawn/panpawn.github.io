@@ -22,7 +22,7 @@
             margin-bottom: 8px;
             background: #ffb356;
             font-family: "lucida sans unicode", "lucida grande", sans-serif;
-            font-size: 12px;
+            font-size: 10px;
         }
         .footer {
             color: black;
@@ -42,14 +42,14 @@
         }
         button {
             background-color: #ffab23;
-            -moz-border-radius: 10px;
+            -moz-border-radius: 1px;
             -webkit-border-radius: 10px;
-            border-radius: 10px;
+            border-radius: 6px;
             border: 2px solid #de8c11;
             font-family: monospace;
             font-size: 10px;
-            padding: 4px 16px;
-            font-size: 22px;
+            padding: 2px 7px;
+            font-size: 13px;
             transition: all 0.3s ease 0s;
             position: relative;
             text-align: center;
@@ -58,14 +58,70 @@
             background-color: #FF9933
         }
     </style>
+    <script type="text/javascript">
+    function howRu(answer) {
+        if (!answer) return false;
+        let reply = '';
+        if (answer === 'Good') {
+            reply = "That's nice to hear :)";
+        } else {
+            reply = "<p>D'aw, wanna play some rock-paper-scizors to cheer up?</p>";
+            reply += '<button onclick="question2(\'Yes\')">Yes</button> <button onclick="question2(\'No\')">No</button>';
+        }
+        return document.getElementById("reply").innerHTML = reply;
+    }
+    function question2(answer) {
+        if (!answer) return false;
+        var reply = '';
+        if (answer === 'Yes') {
+            reply = 'Okay, pick: <button onclick="rps(\'Rock\')">Rock</button> <button onclick="rps(\'Paper\')">Paper</button> <button onclick="rps(\'Scizors\')">Scizors</button>'; 
+        } else if (answer === 'No') {
+            reply = 'Alrighty then /o/';
+        }
+        return document.getElementById("reply").innerHTML = reply;
+    }
+    function rps(response) {
+        if (!response) return false;
+        var output = '';
+        var tie = false;
+        var options = ['Rock', 'Paper', 'Scizors'];
+        var cpu = options[Math.floor(Math.random() * options.length)];
+        if (response === cpu) {
+            output = 'We both picked ' + response + ' :|';
+            tie = true;
+        }
+        var winnings = {
+            'Rock': 'Scizors',
+            'Paper': 'Rock',
+            'Scizors': 'Paper',
+        };
+        if (winnings[response] !== cpu && !tie) {
+           output += 'You lost! I chose ' + cpu + '! :D';
+        } else if (winnings[response] === cpu && !tie) {
+            output += 'NOOO, HACKER! You won, I chose ' + cpu + '! D:';
+        }
+        playAgain();
+        return document.getElementById("reply").innerHTML = output; 
+    }
+    function playAgain() {
+        document.getElementById("question").innerHTML = 'Wanna play again?';
+        document.getElementById("buttons").innerHTML = '<button onclick="question2(\'Yes\')">Yes</button> ';
+        document.getElementById("buttons").innerHTML += '<button onclick="question2(\'No\')">No</button>'
+    }
+    </script>
 </head>
 <body>
     <span class="header">panpawn</span>
     <img src="selfy.png" width="10%" border="1" title="(Photograph by: Cassandra Sullivan)">
     <div class="textbody">
         <p>Hiya, my name is Jeremy, but a lot of people call me panpawn.  I enjoy creative problem solving, and more recently, that has been expressed in the form of software development.</p>
-       <a href="resume.pdf"><button class="button" title="View my Résumé">Résumé</button></a>
+       <a href="resume.pdf"><button title="View my Résumé">Résumé</button></a>
        <p>My resume covers a good basis of some of the more important stuff that I've worked on.</p>
+       <p id="question">Anyways, enough about me. How is your day going so far?</p>
+       <div id="buttons">
+            <button onclick="howRu('Good')">Good :)</button> <button onclick="howRu('Bad')">Bad :(</button>
+        </div>
+       <p id="reply"></p>
     </div>
     <div class="footer">© Jeremy Piemonte 2016</div>
 </body>
