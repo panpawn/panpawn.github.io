@@ -6,18 +6,30 @@
     <link rel="stylesheet" href="style/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style/style.css">
     <link rel="shortcut icon" href="images/favicon.ico">
-    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="rps.js"></script>
 </head>
 <body>
     <span class="header">panpawn</span>
     <img src="images/selfy.png" width="10%" border="1" title="(Photograph by: Cassandra Sullivan)">
     <div class="textbody">
-        <p>Hi there. My name is Jeremy, but a lot of people online call me panpawn.  I enjoy creative problem solving, and more recently, that has been expressed in the form of software development.</p>
+        <p>Hi. My name is Jeremy, but a lot of people online call me panpawn.  I enjoy creative problem solving, and most recently, that has been expressed in the form of software development.</p>
         <p>I've always had a strong interest in technology.  I can recall as a small child, I would take old computers I had around the house apart and put them back together whenever I was bored.</p>
-       <p>My <a href="resume.pdf" target="_blank">résumé</a> will probably give you a pretty good idea of some of the more important stuff that I've worked on up until this point as well as my technical abilities.</p>
+        <h1>Projects I've created</h1>
+        <ul>
+        <li><a href="https://github.com/panpawn/Discord-Bot" target="_blank">Discord-Bot</a> - A simple <span class="keyword" title="Node.js is a commonly used open source backend framework that runs on many operating systems.">Node.js</span> bot for Discord powered by <a href="https://discord.js.org/#/" target="_blank">discord.js</a></li>
+        <li><a href="https://play.google.com/store/apps/details?id=appinventor.ai_TheBestInTheWorld12321.ThreeGuysSoftware&hl=en" target="_blank">The Amazing Alphabet</a> - An Android application that helps children learn the alphabet using different</li>
+        </ul>
+
+        <h1>Projects I've contributed to</h1>
+        <ul>
+        <li><a href="http://github.com/Zarel/Pokemon-Showdown" target="_blank">Pokemon Showdown</a> - An online Pokemon simulator with lots of chatting features</li>
+        <li><a href="https://github.com/jd4564/PS-Bot" target="_blank">PS-Bot</a> - A bot for Pokemon Showdown that features cross-server offline messaging and a chat log viewer</li>
+        </ul>
+
+       <p>You may also want to checkout my <a href="resume.pdf" target="_blank">résumé</a>.</p>
        <p id="question">Anyways, enough about me. How is your day going so far?</p>
        <div id="buttons">
-            <button onclick="howRu('Good')">Good <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button> <button onclick="howRu('Bad')">Bad <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+            <button onclick="RPS.howRu('Good')">Good <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button> <button onclick="RPS.howRu('Bad')">Bad <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
 </button>
         </div>
        <p id="reply"></p>

@@ -1,6 +1,6 @@
 .header {
 	color: #FF9933;
-	font-size: 30px;
+	font-size: 40px;
 	font-weight: bold;
 	font-family: monospace;
 }
@@ -10,13 +10,13 @@
 	margin: auto;
 	padding-top: 5px;
 	padding-bottom: 8px;
-	padding-right: 5px;
-	padding-left: 5px;
+	padding-right: 6px;
+	padding-left: 6px;
 	margin-top: 8px;
 	margin-bottom: 8px;
 	background: #ffb356;
 	font-family: "lucida sans unicode", "lucida grande", sans-serif;
-	font-size: 10px;
+	font-size: 15px;
 }
 .footer {
 	color: black;
@@ -25,9 +25,16 @@
 	bottom: 0;
 	left: 0;
 	padding: .3rem;
-	font-size: 10px;
+	font-size: 15px;
 	background-color: #ffb356;
 	text-align: center;
+}
+.keyword {
+	text-decoration: underline;
+	text-decoration-style: dashed;
+}
+.score {
+	text-align: right;
 }
 body {
 	margin-right: 15%;
@@ -41,13 +48,21 @@ button {
 	border-radius: 6px;
 	border: 2px solid #de8c11;
 	font-family: monospace;
-	font-size: 10px;
 	padding: 2px 7px;
-	font-size: 13px;
+	font-size: 15px;
 	transition: all 0.3s ease 0s;
 	position: relative;
 	text-align: center;
 }
 button:hover {
 	background-color: #FF9933
+}
+h1 {
+	font-size: 20px;
+	font-family: monospace;
+	padding: 0px;
+	margin: 0px;
+}
+ul {
+	margin: 0px;
 }
