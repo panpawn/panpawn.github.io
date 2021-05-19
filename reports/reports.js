@@ -7,9 +7,11 @@ function report() {
 	const ind = "          ";
     let div1 = document.getElementById('div1').checked;
 	let div2 = document.getElementById('div2').checked;
+	let div3 = document.getElementById('div3').checked;
 	let department = '';
 	if (div1) department = "SASP";
 	if (div2) department = "BCSO";
+	if (div3) department = "SAHP";
 	let date = new Date().toLocaleDateString('en-US');
 	
 
