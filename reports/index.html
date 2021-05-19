@@ -13,6 +13,16 @@
             <div class="form-group">
                 <label class="inline">Your Name and Badge-Number:</label>
                 <input type="text" id="yourself" name="yourself" placeholder="505 A. Swanson" />
+				&nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp<button id="copyReport" onClick="copy()">Copy Report</button>
+            </div>
+			<div class="form-group">
+                <label>What is your department: </label>
+                <div class="form-group layer-2">
+                    <input type="radio" id="div1" name="division" value="SASP" checked />
+                    <label for="div1">SASP</label> 
+                    <input type="radio" id="div2" name="division" value="BSCO" />
+                    <label for="BSCO">BSCO</label> 
+                </div>
             </div>
             <div class="form-group">
                 <label>Officers Involved (excluding yourself):</label>
@@ -31,7 +41,7 @@
                 <input type="number" min="1" max="10" id="suspects" placeholder="2" name="suspects" />
             </div>
             <div class="form-group">
-                <label>Confiscated Items:</label>
+                <label>Confiscated Items (Evidence Log):</label>
                 <textarea id="confiscated" name="confiscated" placeholder="1x Normal Pistol (No Serial)&#10;3x Thermite&#10;..."></textarea>
             </div>
             <div class="form-group">
@@ -92,7 +102,6 @@
             </div>
             <div class="form-group">
                 <label>How do they plea?</label>
-                
                 <div class="form-group layer-2">
                     <input type="radio" id="plea1" name="plea" value="GUILTY" checked />
                     <label for="plea1">Guilty</label> 
@@ -107,6 +116,15 @@
                 <input type="text" class="invisible" id="months" name="months" max="9999" min="1" /> months / $<input type="text" class="invisible" min="1" max="20000" id="fine" name="fine" />
             </div>
 			<div class="form-group">
+                <label>Was time reduced?</label>
+                <div class="form-group layer-2">
+                    <input type="radio" id="yreduce" name="reduced" value="REDUCED" checked />
+                    <label for="yreduce">Yes</label> 
+                    <input type="radio" id="nreduce" name="reduced" value="NOT REDUCED" />
+                    <label for="nreduce">No</label> 
+                </div>
+            </div>
+			<div class="form-group">
                 <label>Which Police Department were they processed at?</label>
                 <input type="text" id="pd" name="pd" /></label>
             </div>
@@ -114,7 +132,7 @@
 			<button onClick="report()">Generate Report</button>
 			!-->
         </div>
-        <pre id="reportBody"></pre>
+        <pre id="reportBody">[report will automatically generate as you fill out the form to the left]</pre>
         
         <script src="reports.js"></script>
     </body>

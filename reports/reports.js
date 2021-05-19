@@ -4,11 +4,23 @@ let buffer = [];
 
 function report() {
 	let callsign = document.getElementById('yourself').value.trim() || '[missing]';
-    
+	const ind = "          ";
+    let div1 = document.getElementById('div1').checked;
+	let div2 = document.getElementById('div2').checked;
+	let department = '';
+	if (div1) department = "SASP";
+	if (div2) department = "BCSO";
+	let date = new Date().toLocaleDateString('en-US');
+	
+
+	
 	buffer = [];
-	buffer.push("OFFICER NAME: " + callsign);
+	
+	buffer.push("[DEPARTMENT]: " + department + 
+	ind + "[DATE]: " + date + ind + 
+	"[OFFICER]: " + callsign);
 	buffer.push("");
-	buffer.push("OFFICERS INVOLVED:");
+	buffer.push("[OFFICERS INVOLVED]:");
 	buffer.push(callsign);
 
 	let officers = document.getElementById('officers').value.trim();
@@ -38,6 +50,9 @@ function report() {
 	let plea2 = document.getElementById('plea2').checked;
 	let plea3 = document.getElementById('plea3').checked;
 	let medical = document.getElementById('medical').checked;
+	let reduced1 = document.getElementById('yreduce').checked;
+	let reduced2 = document.getElementById('nreduce').checked;
+	let reduced = (reduced1 ? "YES" : "NO");
 	let pd = document.getElementById('pd').value || "";
 	if (pd) pd = "The suspect was processed at " + pd + ". ";
 	let drugsales = document.getElementById('drugsale').checked;
@@ -46,7 +61,6 @@ function report() {
 	let houserobbery = document.getElementById('houserobbery').checked;
 	let houserobberyarea = document.getElementById('houserobberyarea').value || "";
 	if (houserobberyarea) houserobberyarea = "The " + houserobberyarea + " area was where the suspect was caught robbing houses. ";
-	
 	
 	let summary = "";
 	if (jewlery) {
@@ -108,14 +122,14 @@ function report() {
 	officers = officers.split('\n');
 	buffer.push(...officers);
 	buffer.push("");
-	buffer.push("SUSPECT:");
+	buffer.push("[SUSPECT INVOLVED]:");
 	buffer.push(suspect);
 	if (fingerprinted) {
 		buffer.push("(Suspect was identified by their fingerprint)");
 	}
 	buffer.push("");
 
-	buffer.push("WITNESSES:");
+	buffer.push("[WITNESSES]:");
 	if (witnesses === '') {
 		buffer.push("N/A");
 	} else {
@@ -124,11 +138,11 @@ function report() {
 	}
 	buffer.push("");
 
-	buffer.push("SUMMARY:");
+	buffer.push("[REPORT OF INCIDENT]: ----------");
 	buffer.push(summary.trim());
 	buffer.push("");
 
-	buffer.push("EVIDENCE:");
+	buffer.push("[EVIDENCE]:");
 	if (evidence === '') {
 		buffer.push("N/A");
 	} else {
@@ -136,7 +150,7 @@ function report() {
 		buffer.push(...evidence);
 	}
 	buffer.push("");
-	buffer.push("Confiscated Items:");
+	buffer.push("[EVIDENCE LOG]:");
 	if (confiscated === '') {
 		buffer.push("N/A");
 	} else {
@@ -145,14 +159,16 @@ function report() {
 	}
 	buffer.push("");
 	
-	buffer.push("CHARGES:")
+	buffer.push("[CHARGES]:")
 	buffer.push("(See arrest report)");
 	buffer.push("");
 	
-	buffer.push("SENTENCE:");
-	buffer.push(months + " months / $" + fine + " fine");
+	buffer.push("[SENTENCE]:");
+	buffer.push("MONTHS: " + months + ind + "FINE: $" + fine);
 	buffer.push("");
-	buffer.push("-----");
+	buffer.push("[TIME REDUCED?]:");
+	buffer.push(reduced);
+	buffer.push("");
 	
 	let plea = "";
 	if (plea1) {
@@ -162,8 +178,9 @@ function report() {
 	} else if (plea3) {
 		plea = "NO CONTEST";
 	}
+	buffer.push("[PLEA]:");
 	buffer.push("SUSPECT PLEAD " + plea + " TO ALL CHARGES");
-	
+		
 	return document.getElementById('reportBody').innerHTML = buffer.join("<br />");
 }
 
@@ -173,17 +190,28 @@ inputs.forEach(i => i.addEventListener('keyup', report, false));
 let checkboxes = document.querySelectorAll('input[type="checkbox"], input[type="radio"]');
 checkboxes.forEach(i => i.addEventListener('click', report, false));
 
-document.getElementById('reportBody').addEventListener('click', function() {
-	let range, selection;
-	if (document.body.createTextRange) {
-		range = document.body.createTextRange();
-		range.moveToElementText(this);
-		range.select();
-	} else if (window.getSelection) {
-		selection = window.getSelection();
-		range = document.createRange();
-		range.selectNodeContents(this);
-		selection.removeAllRanges();
-		selection.addRange(range);
-	}
-}, false);
+let doCopy = false;
+
+function copy () {
+	doCopy = true;
+	document.getElementById('reportBody').addEventListener('click', function() {
+		if (doCopy) {
+			let range, selection;
+			if (document.body.createTextRange) {
+				range = document.body.createTextRange();
+				range.moveToElementText(this);
+				range.select();
+			} else if (window.getSelection) {
+				selection = window.getSelection();
+				range = document.createRange();
+				range.selectNodeContents(this);
+				selection.removeAllRanges();
+				selection.addRange(range);
+			}
+			document.execCommand("copy");
+			alert("The report has been copied to your clipboard.");
+		}
+		doCopy = false;
+	}, false);
+	document.getElementById('reportBody').click();
+}
