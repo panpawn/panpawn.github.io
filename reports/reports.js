@@ -37,6 +37,16 @@ function report() {
 	let plea1 = document.getElementById('plea1').checked;
 	let plea2 = document.getElementById('plea2').checked;
 	let plea3 = document.getElementById('plea3').checked;
+	let medical = document.getElementById('medical').checked;
+	let pd = document.getElementById('pd').value || "";
+	if (pd) pd = "The suspect was processed at " + pd + ". ";
+	let drugsales = document.getElementById('drugsale').checked;
+	let drugs = document.getElementById('drugs').value || "";
+	if (drugs) drugs = "The type of drug this person was selling was " + drugs + ". ";
+	let houserobbery = document.getElementById('houserobbery').checked;
+	let houserobberyarea = document.getElementById('houserobberyarea').value || "";
+	if (houserobberyarea) houserobberyarea = "The " + houserobberyarea + " area was where the suspect was caught robbing houses. ";
+	
 	
 	let summary = "";
 	if (jewlery) {
@@ -72,6 +82,14 @@ function report() {
 		"stayed behind to collect the hostage(s), all others got ready to pursue. ";
 	}
     
+	if (drugsales) {
+		summary += "The suspect was caught doing a handoff in the area of a reported drug sale. " + drugs;
+	}
+	
+	if (houserobbery) {
+		summary += "The suspect was coming out of a house that was reported being robbed. " + houserobberyarea;
+	}
+	
 	if (fevading) {
 		summary += "The " + suspects + " attempted to evade police recklessly. The suspect in question ended up getting caught. ";
 	} else if (evading) {
@@ -80,6 +98,10 @@ function report() {
 	if (resisting) {
 		summary += "The suspect resisted arrest by running from police. The suspect in question ended up getting caught. ";
 	}
+	if (medical) {
+		summary += "The suspect got injured before reaching police custody, so they were offered and received medical treatment by medical professionals. ";
+	}
+	summary += pd;
 	
 	officers = officers.split('\n');
 	buffer.push(...officers);

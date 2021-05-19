@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label class="inline">Suspect:</label>
-                <input type="text" id="suspect" name="suspect" placeholder="1234 Steve Jobs" />
+                <input type="text" id="suspect" name="suspect" placeholder="Steve Jobs (1234)" />
             </div>
             <div class="form-group">
                 <input type="checkbox" id="fingerprint" name="fingerprint" value="Fingerprint" />
@@ -36,7 +36,7 @@
             </div>
             <div class="form-group">
                 <label>Witnesses:</label>
-                <textarea id="witnesses" name="witnesses" placeholder="7862 Theo Pearson&#10;8766 Logan Saunders&#10;..."></textarea>
+                <textarea id="witnesses" name="witnesses" placeholder="Theo Pearson (Hostage) - 617-2154&#10;Logan Saunders (524-2143) &#10;..."></textarea>
             </div>
             <div class="form-group">
                 <label>Evidence:</label>
@@ -65,6 +65,14 @@
                     <input type="checkbox" id="shotgun" name="shotgun" value="shotgun" />
                     <label for="shotgun">They dropped a shotgun for another demand (Which?) <input type="text" id="otherDemand" name="otherDemand" /></label>
                 </div>
+				<div class="form-group layer-2">
+                    <input type="checkbox" id="drugsale" name="drugsale" value="drugsale" />
+                    <label for="drugsale">Caught drug sales handoff (What drugs?)</label> <input type="text" id="drugs" name="drugs" /></label>
+                </div>
+				<div class="form-group layer-2">
+                    <input type="checkbox" id="houserobbery" name="houserobbery" value="houserobbery" />
+                    <label for="houserobbery">Caught coming out of house robbery (What area?)</label> <input type="text" id="houserobberyarea" name="houserobberyarea" /></label>
+                </div>
                 <div class="form-group layer-2">
                     <input type="checkbox" id="fevading" name="fevading" value="fevading" />
                     <label for="fevading">Felony Evading</label>
@@ -77,19 +85,19 @@
                     <input type="checkbox" id="resisting" name="resisting" value="resisting" />
                     <label for="resisting">Resisting a Peace Officer</label>
                 </div>
+				<div class="form-group layer-2">
+                    <input type="checkbox" id="medical" name="medical" value="medical" />
+                    <label for="medical">Suspect received medical treatment</label>
+                </div>
             </div>
             <div class="form-group">
                 <label>How do they plea?</label>
                 
                 <div class="form-group layer-2">
                     <input type="radio" id="plea1" name="plea" value="GUILTY" checked />
-                    <label for="plea1">Guilty</label>
-                </div>
-                <div class="form-group layer-2">
+                    <label for="plea1">Guilty</label> 
                     <input type="radio" id="plea2" name="plea" value="NOT GUILTY" />
-                    <label for="plea2">Not Guilty</label>
-                </div>
-                <div class="form-group layer-2">
+                    <label for="plea2">Not Guilty</label> 
                     <input type="radio" id="plea3" name="plea" value="NO CONTEST" />
                     <label for="plea3">No Contest</label>
                 </div>
@@ -98,7 +106,13 @@
                 <label>How fucked are they?</label>
                 <input type="text" class="invisible" id="months" name="months" max="9999" min="1" /> months / $<input type="text" class="invisible" min="1" max="20000" id="fine" name="fine" />
             </div>
-            <button onClick="report()">Generate Report</button>
+			<div class="form-group">
+                <label>Which Police Department were they processed at?</label>
+                <input type="text" id="pd" name="pd" /></label>
+            </div>
+            <!--
+			<button onClick="report()">Generate Report</button>
+			!-->
         </div>
         <pre id="reportBody"></pre>
         
