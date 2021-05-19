@@ -64,7 +64,7 @@ function report() {
     
 	let demands = [];
 	if (fpassage) {
-		summary += "After a tense negotiate with the " + suspects + ", we settled on ";
+		summary += "After a tense negotiation with the " + suspects + ", we settled on ";
 		demands.push('free passage');
 		demands.push('no spike strips');
 		if (moreDemands) demands.push(...moreDemands.split(','));
