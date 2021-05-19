@@ -78,7 +78,9 @@ function report() {
 		} else {
 			summary += '[missing]';
 		}
-		summary += " for the safety of the hostage(s). Scene command said that these demands were acceptable. One unit " +
+		summary += " for the safety of the hostage(s). ";
+		if (shotgun) summary += "They agreed to drop their shotgun for 1 additional command. ";
+		summary += "Scene command said that these demands were acceptable. One unit " +
 		"stayed behind to collect the hostage(s), all others got ready to pursue. ";
 	}
     
