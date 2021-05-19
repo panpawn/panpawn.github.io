@@ -3,7 +3,7 @@
 let buffer = [];
 
 function report() {
-    let callsign = document.getElementById('yourself').value.trim() || '[missing]';
+	let callsign = document.getElementById('yourself').value.trim() || '[missing]';
     
 	buffer = [];
 	buffer.push("OFFICER NAME: " + callsign);
@@ -52,18 +52,14 @@ function report() {
 		summary += "The " + suspects + " had " + hostages + " held at gunpoint. ";
 	}
     
-    let demands = [];
+	let demands = [];
 	if (fpassage) {
 		summary += "After a tense negotiate with the " + suspects + ", we settled on ";
-        demands.push('free passage');
-        demands.push('no spike strips');
-		if (moreDemands) {
-			demands.push(...moreDemands.split(','));
-		}
-		if (otherDemand) {
-			demands.push(...otherDemand.split(','));
-		}
-		
+		demands.push('free passage');
+		demands.push('no spike strips');
+		if (moreDemands) demands.push(...moreDemands.split(','));
+		if (otherDemand) demands.push(...otherDemand.split(','));
+
 		if (demands.length === 1) {
 			summary += demands[0];
 		} else if (demands.length > 1) {
@@ -77,24 +73,22 @@ function report() {
 	}
     
 	if (fevading) {
-        summary += "The " + suspects + " attempted to evade police recklessly. The suspect in question ended up getting caught. ";
-    } else if (evading) {
-        summary += "The " + suspects + " attempted to evade police. The suspect in question ended up getting caught. ";
-    }
+		summary += "The " + suspects + " attempted to evade police recklessly. The suspect in question ended up getting caught. ";
+	} else if (evading) {
+		summary += "The " + suspects + " attempted to evade police. The suspect in question ended up getting caught. ";
+	}
 	if (resisting) {
-        summary += "The suspect resisted arrest by running from police. The suspect in question ended up getting caught. ";
-    }
-	
-	
+		summary += "The suspect resisted arrest by running from police. The suspect in question ended up getting caught. ";
+	}
 	
 	officers = officers.split('\n');
-    buffer.push(...officers);
+	buffer.push(...officers);
 	buffer.push("");
 	buffer.push("SUSPECT:");
 	buffer.push(suspect);
 	if (fingerprinted) {
-        buffer.push("(Suspect was identified by their fingerprint)");
-    }
+		buffer.push("(Suspect was identified by their fingerprint)");
+	}
 	buffer.push("");
 
 	buffer.push("WITNESSES:");
@@ -102,7 +96,7 @@ function report() {
 		buffer.push("N/A");
 	} else {
 		witnesses = witnesses.split('\n');
-        buffer.push(...witnesses);
+		buffer.push(...witnesses);
 	}
 	buffer.push("");
 
@@ -115,7 +109,7 @@ function report() {
 		buffer.push("N/A");
 	} else {
 		evidence = evidence.split('\n');
-        buffer.push(...evidence);
+		buffer.push(...evidence);
 	}
 	buffer.push("");
 	buffer.push("Confiscated Items:");
@@ -123,7 +117,7 @@ function report() {
 		buffer.push("N/A");
 	} else {
 		confiscated = confiscated.split('\n');
-        buffer.push(...confiscated);
+		buffer.push(...confiscated);
 	}
 	buffer.push("");
 	
@@ -138,12 +132,12 @@ function report() {
 	
 	let plea = "";
 	if (plea1) {
-        plea = "GUILTY";
-    } else if (plea2) {
-        plea = "NOT GUILTY";
-    } else if (plea3) {
-        plea = "NO CONTEST";
-    }
+		plea = "GUILTY";
+	} else if (plea2) {
+		plea = "NOT GUILTY";
+	} else if (plea3) {
+		plea = "NO CONTEST";
+	}
 	buffer.push("SUSPECT PLEAD " + plea + " TO ALL CHARGES");
 	
 	return document.getElementById('reportBody').innerHTML = buffer.join("<br />");
@@ -156,16 +150,16 @@ let checkboxes = document.querySelectorAll('input[type="checkbox"], input[type="
 checkboxes.forEach(i => i.addEventListener('click', report, false));
 
 document.getElementById('reportBody').addEventListener('click', function() {
-    let range, selection;
-    if (document.body.createTextRange) {
-        range = document.body.createTextRange();
-        range.moveToElementText(this);
-        range.select();
-    } else if (window.getSelection) {
-        selection = window.getSelection();
-        range = document.createRange();
-        range.selectNodeContents(this);
-        selection.removeAllRanges();
-        selection.addRange(range);
-    }
+	let range, selection;
+	if (document.body.createTextRange) {
+		range = document.body.createTextRange();
+		range.moveToElementText(this);
+		range.select();
+	} else if (window.getSelection) {
+		selection = window.getSelection();
+		range = document.createRange();
+		range.selectNodeContents(this);
+		selection.removeAllRanges();
+		selection.addRange(range);
+	}
 }, false);
