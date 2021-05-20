@@ -67,7 +67,7 @@ function report() {
 	if (houserobberyarea) houserobberyarea = "The " + houserobberyarea + " area was where the suspect was caught robbing houses. ";
 	let other = document.getElementById('other').value.trim() || "";
 	
-	let summary = other;
+	let summary = other + " " || "";
 	if (jewlery) {
 		summary += callsign + " responded to a call of a Jewlery Store being robbed. " +
 		"Upon arriving on scene, we noticed there "+(suspects.endsWith("s") ? 'were' : 'was')+" " + suspects + ". " 
