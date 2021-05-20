@@ -32,6 +32,8 @@ function report() {
 	let fingerprinted = document.getElementById('fingerprint').checked;
 	let jewlery = document.getElementById('jewlery').checked;
 	let bank = document.getElementById('bank').checked;
+	let shop = document.getElementById('shop').checked;
+	let whichShop = document.getElementById('whichShop').value.trim() || '[missing]';
 	let kidnapping = document.getElementById('kidnapping').checked;
 	let hostages = document.getElementById('hostages').value || 1;
 	hostages = hostages + " hostage" + (Number(hostages) > 1 ? "s" : "");
@@ -74,6 +76,12 @@ function report() {
 		"The bank in question was the Fleeca by " + whichBank + ". " +
 		"Upon arriving on scene, we noticed there "+(suspects.endsWith("s") ? 'were' : 'was')+" " + suspects + ". " 
 	}
+	if (shop) {
+		summary += callsign + " responded to a call of a shop being robbed. " +
+		"The shop in question was the shop by " + whichShop + ". " +
+		"Upon arriving on scene, we noticed there "+(suspects.endsWith("s") ? 'were' : 'was')+" " + suspects + ". " 
+	}
+
 	if (kidnapping) {
 		summary += "The " + suspects + " had " + hostages + " held at gunpoint. ";
 	}
