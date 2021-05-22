@@ -158,7 +158,9 @@ function report() {
 		buffer.push("N/A");
 	} else {
 		evidence = evidence.split('\n');
-		buffer.push(...evidence);
+		evidence.forEach(line => {
+			buffer.push(line.replace('| SC', '| Security Camera Photo'));
+		});
 	}
 	buffer.push("");
 	buffer.push("[EVIDENCE LOG]:");
