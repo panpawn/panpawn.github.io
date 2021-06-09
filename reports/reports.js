@@ -1,6 +1,7 @@
 'use strict';
 
 let buffer = [];
+let officersInvolved = new Set();
 
 function report() {
 	let callsign = document.getElementById('yourself').value.trim() || '[missing]';
@@ -25,7 +26,7 @@ function report() {
 	buffer.push("[OFFICERS INVOLVED]:");
 	buffer.push(callsign);
 
-	let officers = document.getElementById('officers').value.trim();
+	let officersearch = document.getElementById('officersearch').value.trim();
 	let suspect = document.getElementById('suspect').value.trim() || '[missing]';
 	let suspects = document.getElementById('suspects').value || 1;
 	suspects = suspects + " suspect" + (Number(suspects) > 1 ? "s" : "");
@@ -130,8 +131,8 @@ function report() {
 	}
 	summary += pd;
 	
-	officers = officers.split('\n');
-	buffer.push(...officers);
+	searchOfficer(officersearch);
+	buffer.push(...officersInvolved.values());
 	buffer.push("");
 	buffer.push("[SUSPECT INVOLVED]:");
 	buffer.push(suspect);
@@ -202,6 +203,71 @@ inputs.forEach(i => i.addEventListener('keyup', report, false));
 
 let checkboxes = document.querySelectorAll('input[type="checkbox"], input[type="radio"]');
 checkboxes.forEach(i => i.addEventListener('click', report, false));
+
+let officers = null;
+let matched = [];
+function searchOfficer(search) {
+	if (!search) {
+		document.getElementById('officerslist').innerHTML = '';
+		return;
+	}
+    search = search.toLowerCase();
+
+    if (!officers) {
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://celestial.network/legacyrp/sasp", false);
+        xhr.send(null);
+        
+        try {
+            officers = JSON.parse(xhr.responseText).data;
+
+            officers = officers.map(officer => officer.callsign + ' ' + officer.full_name);
+        } catch(e) {
+            console.error('Failed to load officers');
+            return false;
+        }
+    }
+    
+    let results = officers.filter(officer => officer.toLowerCase().includes(search));
+	let resultsCap = 5;
+	let count = 0;
+	let finalResults = [];
+	results.forEach(result => {
+		count++;
+		if (count > resultsCap) return;
+		result = result.trim();
+		finalResults.push("<button onClick='toggleOfficer(\"" + result + "\")'>" + result + "</button>");
+	});
+	document.getElementById('officerslist').innerHTML = finalResults.join("<br />");
+}
+
+function toggleOfficer(id) {
+	console.log("Adding " + id + "...");
+	
+	if (officersInvolved.has(id)) {
+		officersInvolved.delete(id);
+	} else {
+		officersInvolved.add(id);
+	
+		document.getElementById('officersearch').value = "";
+		//document.getElementById('officerslist').innerHTML = "<br />"
+	}
+	report(); //??
+	updateOfficers();
+}
+
+function updateOfficers() {
+	let output = "";
+	for (let id of officersInvolved.values()) {
+		output += `<div class="chip">\n`;
+		output += `<img src="images/hat.png" width="96" height="96">\n`;
+		output += `${id}\n`;
+		output += `<span class="closebtn" onclick='toggleOfficer(\"${id}\")'>×</span>\n`;
+		output += `</div>`
+	}
+	
+	document.getElementById('officersAdded').innerHTML = output;
+}
 
 let doCopy = false;
 
