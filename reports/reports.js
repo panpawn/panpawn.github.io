@@ -265,7 +265,8 @@ function updateOfficers() {
 		output += `<div class="chip">\n`;
 		output += `<img src="images/hat.png" width="96" height="96">\n`;
 		output += `${id}\n`;
-		output += `<span class="closebtn" style="cursor: default;" onclick='toggleOfficer(\"${id}\")'>×</span>\n`;
+		output += `<span class="closebtn" style="cursor: default;" onclick='toggleOfficer(\"${id}\")'><i class="fa fa-times-circle-o" aria-hidden="true"></i>
+</span>\n`;
 		output += `</div>`
 	}
 	
