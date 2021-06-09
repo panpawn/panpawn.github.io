@@ -4,7 +4,10 @@ let buffer = [];
 let officersInvolved = new Set();
 
 function report() {
-	let callsign = document.getElementById('yourself').value.trim() || '[missing]';
+	let callsign = document.getElementById('yourself').value.trim();
+	if (callsign) localStorage.setItem('callsign', callsign);
+	if (!callsign && localStorage.getItem('callsign')) callsign = localStorage.getItem('callsign');
+	if (!callsign) callsign = '[missing]';
 	const ind = "          ";
     let div1 = document.getElementById('div1').checked;
 	let div2 = document.getElementById('div2').checked;
