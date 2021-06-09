@@ -239,7 +239,7 @@ function searchOfficer(search) {
 		count++;
 		if (count > resultsCap) return;
 		result = result.trim();
-		finalResults.push("<button onClick='toggleOfficer(\"" + result + "\")'>" + result + "</button>");
+		finalResults.push("<button title='Click to add this officer to the list of officers involved' onClick='toggleOfficer(\"" + result + "\")'>" + result + "</button>");
 	});
 	document.getElementById('officerslist').innerHTML = finalResults.join("<br />");
 }
@@ -265,7 +265,7 @@ function updateOfficers() {
 		output += `<div class="chip">\n`;
 		output += `<img src="images/hat2.png" width="96" height="96">\n`;
 		output += `${id}\n`;
-		output += `<span class="closebtn" style="cursor: default;" onclick='toggleOfficer(\"${id}\")'><i class="fa fa-times-circle-o" aria-hidden="true"></i>
+		output += `<span class="closebtn" title="Remove this officer from the list of officers involved" style="cursor: default;" onclick='toggleOfficer(\"${id}\")'><i class="fa fa-times-circle-o" aria-hidden="true"></i>
 </span>\n`;
 		output += `</div>`
 	}
