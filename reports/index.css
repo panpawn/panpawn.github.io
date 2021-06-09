@@ -127,18 +127,21 @@ button:hover {
 
 .chip {
     display: inline-block;
-    padding: 0 20px;
+    padding: 0 26px;
     height: 45px;
     font-size: 16px;
     line-height: 45px;
     border-radius: 25px;
     background-color: #9BCDCD;
+	border-color: #5B88CC;
+	border-style: solid;
+	border-width: thin;
 }
 
 .chip img {
     float: left;
     margin: 0 10px 0 -25px;
-    height: 45px;
-    width: 45px;
+    height: 43px;
+    width: 43px;
     border-radius: 50%;
 }
