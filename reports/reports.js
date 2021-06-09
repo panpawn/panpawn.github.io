@@ -263,7 +263,7 @@ function updateOfficers() {
 	let output = "";
 	for (let id of officersInvolved.values()) {
 		output += `<div class="chip">\n`;
-		output += `<img src="images/hat.png" width="96" height="96">\n`;
+		output += `<img src="images/hat2.png" width="96" height="96">\n`;
 		output += `${id}\n`;
 		output += `<span class="closebtn" style="cursor: default;" onclick='toggleOfficer(\"${id}\")'><i class="fa fa-times-circle-o" aria-hidden="true"></i>
 </span>\n`;
