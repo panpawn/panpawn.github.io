@@ -236,7 +236,7 @@ function searchOfficer(search) {
 		count++;
 		if (count > resultsCap) return;
 		result = result.trim();
-		finalResults.push("<button title='Click to add this officer to the list of officers involved' onClick='toggleOfficer(\"" + result + "\")'>" + result + "</button>");
+		finalResults.push("<button title='Add this officer to the list of officers involved' onClick='toggleOfficer(\"" + result + "\")'>" + result + "</button>");
 	});
 	document.getElementById('officerslist').innerHTML = finalResults.join("<br />");
 }
