@@ -12,10 +12,14 @@
     </head>
     <body>
         <div id="form">
-            <div class="form-group">
+            <div class="form-group"><br />
                 <label class="inline" title="(You only have to do this once - it will cache)" style="border-bottom: 1px dotted #000; text-decoration: none;">Your callsign/name:</label>
                 <input type="text" id="yourself" name="yourself" placeholder="TF-505 A. Swanson" />
-				&nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp<button id="copyReport" onClick="copy()">Copy Report</button>
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				<div class="popup" onclick="copy()">
+					<div class="btn">Copy Report</div>
+					<span class="popuptext" id="myPopup">Report copied!</span>
+				</div>
             </div>
 			<div class="form-group">
                 <label>What is your department: </label>

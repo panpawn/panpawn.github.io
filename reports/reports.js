@@ -9,7 +9,7 @@ function report() {
 	if (!callsign && localStorage.getItem('callsign')) callsign = localStorage.getItem('callsign');
 	if (!callsign) callsign = '[missing]';
 	const ind = "          ";
-    let div1 = document.getElementById('div1').checked;
+	let div1 = document.getElementById('div1').checked;
 	let div2 = document.getElementById('div2').checked;
 	let div3 = document.getElementById('div3').checked;
 	let department = '';
@@ -17,11 +17,8 @@ function report() {
 	if (div2) department = "BCSO";
 	if (div3) department = "SAHP";
 	let date = new Date().toLocaleDateString('en-US');
-	
 
-	
 	buffer = [];
-	
 	buffer.push("[DEPARTMENT]: " + department + 
 	ind + "[DATE]: " + date + ind + 
 	"[OFFICER]: " + callsign);
@@ -273,6 +270,14 @@ function updateOfficers() {
 	document.getElementById('officersAdded').innerHTML = output;
 }
 
+function showCopiedPopup() {
+	let popup = document.getElementById("myPopup");
+	popup.classList.toggle("show");
+	setTimeout(function() {
+		popup.classList.toggle("show");
+	}, 3500);
+}
+
 let doCopy = false;
 
 function copy () {
@@ -292,7 +297,12 @@ function copy () {
 				selection.addRange(range);
 			}
 			document.execCommand("copy");
-			alert("The report has been copied to your clipboard.");
+			if (window.getSelection) {
+				window.getSelection().removeAllRanges();
+			} else if (document.selection) {
+				document.selection.empty();
+			}
+			showCopiedPopup()
 		}
 		doCopy = false;
 	}, false);
