@@ -241,7 +241,7 @@ body{
 
 body.dark-theme {
 	color: #eee;
-	background: #121212;
+	background: #303030;
 }
 body.dark-theme .chip {
 	color: black;
@@ -252,7 +252,6 @@ body.dark-theme pre {
 body.dark-theme .btn {
 	background-color: #636363;
 	color: #f9f9f9;
-	#484848
 }
 body.dark-theme .btn:hover{
     background-color: #484848;
@@ -265,4 +264,3 @@ body.dark-theme textarea, body.dark-theme input {
 body.dark-theme textarea::placeholder, body.dark-theme input::placeholder {
   color: #C1C1C1;  
 }
-	
