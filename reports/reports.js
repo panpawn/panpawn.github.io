@@ -2,6 +2,7 @@
 
 let buffer = [];
 let officersInvolved = new Set();
+let darkmodeState;
 
 function report() {
 	let callsign = document.getElementById('yourself').value.trim();
@@ -194,7 +195,18 @@ function report() {
 	}
 	buffer.push("[PLEA]:");
 	buffer.push("SUSPECT PLEAD " + plea + " TO ALL CHARGES");
-		
+
+	let curDarkmode = document.getElementById('darkmode').checked;
+	if (curDarkmode) {
+		if (darkmodeState !== 'true') {
+			updateDarkmode();
+		}
+	} else if (!curDarkmode) {
+		if (darkmodeState !== 'false') {
+			updateDarkmode();
+		}
+	}
+
 	return document.getElementById('reportBody').innerHTML = buffer.join("<br />");
 }
 
@@ -203,6 +215,29 @@ inputs.forEach(i => i.addEventListener('keyup', report, false));
 
 let checkboxes = document.querySelectorAll('input[type="checkbox"], input[type="radio"]');
 checkboxes.forEach(i => i.addEventListener('click', report, false));
+
+// Listen for a click on the button
+function updateDarkmode() {
+  // Then toggle (add/remove) the .dark-theme class to the body
+  	let darkmode = document.getElementById('darkmode').checked;
+	if (darkmode) {
+		localStorage.setItem("darkmode", true);
+		darkmodeState = 'true';
+	} else if (!darkmode) {
+		localStorage.setItem("darkmode", false);
+		darkmodeState = 'false';
+	}
+	document.body.classList.toggle('dark-theme'); 
+}
+
+function loadDarkmode() {
+	let darkmodeSetting = localStorage.getItem("darkmode");
+	darkmodeState = darkmodeSetting;
+	if (darkmodeSetting == 'true') {
+		document.getElementById('darkmode').checked = true;
+		document.body.classList.toggle('dark-theme');
+	}
+}
 
 let officers = null;
 let matched = [];
@@ -242,17 +277,16 @@ function searchOfficer(search) {
 }
 
 function toggleOfficer(id) {
-	console.log("Adding " + id + "...");
-	
 	if (officersInvolved.has(id)) {
+		console.log("Removing " + id + "...");
 		officersInvolved.delete(id);
 	} else {
+		console.log("Adding " + id + "...");
 		officersInvolved.add(id);
 	
 		document.getElementById('officersearch').value = "";
-		//document.getElementById('officerslist').innerHTML = "<br />"
 	}
-	report(); //??
+	report();
 	updateOfficers();
 }
 
