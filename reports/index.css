@@ -241,16 +241,16 @@ body{
 
 body.dark-theme {
 	color: #eee;
-	background: #303030;
+	background: #36393F;
 }
 body.dark-theme .chip {
 	color: black;
 }
 body.dark-theme pre {
-	background-color: #636363;
+	background-color: #2F3136;
 }
 body.dark-theme .btn {
-	background-color: #636363;
+	background-color: #2F3136;
 	color: #f9f9f9;
 }
 body.dark-theme .btn:hover{
@@ -258,9 +258,9 @@ body.dark-theme .btn:hover{
     border-color: #adadad;
 }
 body.dark-theme textarea, body.dark-theme input {
-	background-color: #636363;
+	background-color: #2F3136;
 	color:#f9f9f9;
 }
 body.dark-theme textarea::placeholder, body.dark-theme input::placeholder {
-  color: #C1C1C1;  
+	color: #C1C1C1;  
 }
