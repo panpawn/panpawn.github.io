@@ -119,9 +119,12 @@
                     <label for="medical">Suspect received medical treatment</label>
                 </div>
 				<div class="form-group layer-2">
-					<label>Other:</label><br />
-					<textarea id="other" name="other" placeholder="Suspect did this at the place...&#10;Suspect jaywalked..."></textarea>
-            </div>
+					<label>Other (<input type="radio" id="otherbefore" name="otherwhere" value="BEFORE" checked />
+                    <label for="otherbefore">Top of report</label>
+                    <input type="radio" id="otherafter" name="otherwhere" value="AFTER" />
+                    <label for="otherafter">Bottom of report</label>)</label><br />
+					<textarea id="other" name="other" placeholder="Suspect did this at the place...&#10;Suspect jaywalked..."></textarea><br />
+				</div>
             </div>
             <div class="form-group">
                 <label>How do they plea?</label>

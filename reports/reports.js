@@ -58,6 +58,8 @@ function report() {
 	let medical = document.getElementById('medical').checked;
 	let reduced1 = document.getElementById('yreduce').checked;
 	let reduced2 = document.getElementById('nreduce').checked;
+	let otherBefore = document.getElementById('otherbefore').checked;
+	let otherAfter = document.getElementById('otherafter').checked;
 	let reduced = (reduced1 ? "YES" : "NO");
 	let pd = document.getElementById('pd').value || "";
 	if (pd) pd = "The suspect was processed at " + pd + ". ";
@@ -69,7 +71,7 @@ function report() {
 	if (houserobberyarea) houserobberyarea = "The " + houserobberyarea + " area was where the suspect was caught robbing houses. ";
 	let other = document.getElementById('other').value.trim() || "";
 	
-	let summary = other + " " || "";
+	let summary = (otherBefore && other ? other + " "  : "") || "";
 	if (jewlery) {
 		summary += callsign + " responded to a call of a Jewlery Store being robbed. " +
 		"Upon arriving on scene, we noticed there "+(suspects.endsWith("s") ? 'were' : 'was')+" " + suspects + ". " 
@@ -152,7 +154,9 @@ function report() {
 	buffer.push("");
 
 	buffer.push("[REPORT OF INCIDENT]: ----------");
+	if (otherAfter && other) summary += other;
 	buffer.push(summary.trim());
+
 	buffer.push("");
 
 	buffer.push("[EVIDENCE]:");
