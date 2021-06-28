@@ -202,13 +202,9 @@ function report() {
 
 	let curDarkmode = document.getElementById('darkmode').checked;
 	if (curDarkmode) {
-		if (darkmodeState !== 'true') {
-			updateDarkmode();
-		}
+		if (darkmodeState === 'false') updateDarkmode();
 	} else if (!curDarkmode) {
-		if (darkmodeState !== 'false') {
-			updateDarkmode();
-		}
+		if (darkmodeState === 'true') updateDarkmode();
 	}
 
 	return document.getElementById('reportBody').innerHTML = buffer.join("<br />");
@@ -236,13 +232,14 @@ function updateDarkmode() {
 
 function loadDarkmode() {
 	let darkmodeSetting = localStorage.getItem("darkmode");
-	if (typeof darkmodeSetting === 'undefined' || (!darkmodeSetting && darkmodeSetting !== 'false')) {
+	if (darkmodeSetting === 'undefined' || (!darkmodeSetting && darkmodeSetting !== 'false')) {
 		localStorage.setItem("darkmode", false);
+		darkmodeState = 'false';
 	}
-	darkmodeState = darkmodeSetting;
 	if (darkmodeSetting == 'true') {
 		document.getElementById('darkmode').checked = true;
 		document.body.classList.toggle('dark-theme');
+		darkmodeState = 'true';
 	}
 }
 
