@@ -20,9 +20,9 @@ function report() {
 	let date = new Date().toLocaleDateString('en-US');
 
 	buffer = [];
-	buffer.push("[DEPARTMENT]: " + department + 
-	ind + "[DATE]: " + date + ind + 
-	"[OFFICER]: " + callsign);
+	buffer.push("[DEPARTMENT]: " + department +
+		ind + "[DATE]: " + date + ind +
+		"[OFFICER]: " + callsign);
 	buffer.push("");
 	buffer.push("[OFFICERS INVOLVED]:");
 	buffer.push(callsign);
@@ -70,27 +70,27 @@ function report() {
 	let houserobberyarea = document.getElementById('houserobberyarea').value || "";
 	if (houserobberyarea) houserobberyarea = "The " + houserobberyarea + " area was where the suspect was caught robbing houses. ";
 	let other = document.getElementById('other').value.trim() || "";
-	
-	let summary = (otherBefore && other ? other + " "  : "") || "";
+
+	let summary = (otherBefore && other ? other + " " : "") || "";
 	if (jewlery) {
 		summary += callsign + " responded to a call of a Jewlery Store being robbed. " +
-		"Upon arriving on scene, we noticed there "+(suspects.endsWith("s") ? 'were' : 'was')+" " + suspects + ". " 
+			"Upon arriving on scene, we noticed there " + (suspects.endsWith("s") ? 'were' : 'was') + " " + suspects + ". "
 	}
 	if (bank) {
 		summary += callsign + " responded to a call of a Fleeca Bank being robbed. " +
-		"The bank in question was the Fleeca by " + whichBank + ". " +
-		"Upon arriving on scene, we noticed there "+(suspects.endsWith("s") ? 'were' : 'was')+" " + suspects + ". " 
+			"The bank in question was the Fleeca by " + whichBank + ". " +
+			"Upon arriving on scene, we noticed there " + (suspects.endsWith("s") ? 'were' : 'was') + " " + suspects + ". "
 	}
 	if (shop) {
 		summary += callsign + " responded to a call of a shop being robbed. " +
-		"The shop in question was the shop by " + whichShop + ". " +
-		"Upon arriving on scene, we noticed there "+(suspects.endsWith("s") ? 'were' : 'was')+" " + suspects + ". " 
+			"The shop in question was the shop by " + whichShop + ". " +
+			"Upon arriving on scene, we noticed there " + (suspects.endsWith("s") ? 'were' : 'was') + " " + suspects + ". "
 	}
 
 	if (kidnapping) {
 		summary += "The " + suspects + " had " + hostages + " held at gunpoint. ";
 	}
-    
+
 	let demands = [];
 	if (fpassage) {
 		summary += "After a tense negotiation with the " + suspects + ", we settled on ";
@@ -110,17 +110,17 @@ function report() {
 		summary += " for the safety of the hostage(s). ";
 		if (shotgun) summary += "They agreed to drop their shotgun for 1 additional command. ";
 		summary += "Scene command said that these demands were acceptable. One unit " +
-		"stayed behind to collect the hostage(s), all others got ready to pursue. ";
+			"stayed behind to collect the hostage(s), all others got ready to pursue. ";
 	}
-    
+
 	if (drugsales) {
 		summary += "The suspect was caught doing a handoff in the area of a reported drug sale. " + drugs;
 	}
-	
+
 	if (houserobbery) {
 		summary += "The suspect was coming out of a house that was reported being robbed. " + houserobberyarea;
 	}
-	
+
 	if (fevading) {
 		summary += "The " + suspects + " attempted to evade police recklessly. The suspect in question ended up getting caught. ";
 	} else if (evading) {
@@ -133,7 +133,7 @@ function report() {
 		summary += "The suspect got injured before reaching police custody, so they were offered and received medical treatment by medical professionals. ";
 	}
 	summary += pd;
-	
+
 	searchOfficer(officersearch);
 	buffer.push(...officersInvolved.values());
 	buffer.push("");
@@ -177,18 +177,18 @@ function report() {
 		buffer.push(...confiscated);
 	}
 	buffer.push("");
-	
+
 	buffer.push("[CHARGES]:")
 	buffer.push("(See arrest report)");
 	buffer.push("");
-	
+
 	buffer.push("[SENTENCE]:");
 	buffer.push("MONTHS: " + months + ind + "FINE: $" + fine);
 	buffer.push("");
 	buffer.push("[TIME REDUCED?]:");
 	buffer.push(reduced);
 	buffer.push("");
-	
+
 	let plea = "";
 	if (plea1) {
 		plea = "GUILTY";
@@ -218,8 +218,8 @@ checkboxes.forEach(i => i.addEventListener('click', report, false));
 
 // Listen for a click on the button
 function updateDarkmode() {
-  // Then toggle (add/remove) the .dark-theme class to the body
-  	let darkmode = document.getElementById('darkmode').checked;
+	// Then toggle (add/remove) the .dark-theme class to the body
+	let darkmode = document.getElementById('darkmode').checked;
 	if (darkmode) {
 		localStorage.setItem("darkmode", true);
 		darkmodeState = 'true';
@@ -227,7 +227,7 @@ function updateDarkmode() {
 		localStorage.setItem("darkmode", false);
 		darkmodeState = 'false';
 	}
-	document.body.classList.toggle('dark-theme'); 
+	document.body.classList.toggle('dark-theme');
 }
 
 function loadDarkmode() {
@@ -245,29 +245,30 @@ function loadDarkmode() {
 
 let officers = null;
 let matched = [];
+
 function searchOfficer(search) {
 	if (!search) {
 		document.getElementById('officerslist').innerHTML = '';
 		return;
 	}
-    search = search.toLowerCase();
+	search = search.toLowerCase();
 
-    if (!officers) {
-        let xhr = new XMLHttpRequest();
-        xhr.open("GET", "https://celestial.network/legacyrp/sasp", false);
-        xhr.send(null);
-        
-        try {
-            officers = JSON.parse(xhr.responseText).data;
+	if (!officers) {
+		let xhr = new XMLHttpRequest();
+		xhr.open("GET", "https://celestial.network/legacyrp/sasp", false);
+		xhr.send(null);
 
-            officers = officers.map(officer => officer.callsign + ' ' + officer.full_name);
-        } catch(e) {
-            console.error('Failed to load officers');
-            return false;
-        }
-    }
-    
-    let results = officers.filter(officer => officer.toLowerCase().includes(search));
+		try {
+			officers = JSON.parse(xhr.responseText).data;
+
+			officers = officers.map(officer => officer.callsign + ' ' + officer.full_name);
+		} catch (e) {
+			console.error('Failed to load officers');
+			return false;
+		}
+	}
+
+	let results = officers.filter(officer => officer.toLowerCase().includes(search));
 	let resultsCap = 5;
 	let count = 0;
 	let finalResults = [];
@@ -287,7 +288,7 @@ function toggleOfficer(id) {
 	} else {
 		console.log("Adding " + id + "...");
 		officersInvolved.add(id);
-	
+
 		document.getElementById('officersearch').value = "";
 	}
 	report();
@@ -304,7 +305,7 @@ function updateOfficers() {
 </span>\n`;
 		output += `</div>`
 	}
-	
+
 	document.getElementById('officersAdded').innerHTML = output;
 }
 
@@ -318,7 +319,7 @@ function showCopiedPopup() {
 
 let doCopy = false;
 
-function copy () {
+function copy() {
 	doCopy = true;
 	document.getElementById('reportBody').addEventListener('click', function() {
 		if (doCopy) {
