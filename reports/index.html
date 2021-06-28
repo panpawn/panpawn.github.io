@@ -1,167 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        
-        <title>Report Generator</title>
-        
-        <link rel="shortcut icon" href="images/favicon.ico" />
-        <link rel="stylesheet" href="index.css" />
-		<link rel="stylesheet" href="../style/font-awesome-4.7.0/css/font-awesome.min.css">
 
-    </head>
-    <body onLoad="loadDarkmode()">
-        <div id="form">
-            <div class="form-group">
-				<input type="checkbox" id="darkmode" name="darkmode" value="darkmode" />
-                <label for="darkmode">Darkmode</label><br />
-                <label class="inline" title="(You only have to do this once - it will cache)" style="border-bottom: 1px dotted #000; text-decoration: none;">Your callsign/name:</label>
-                <input type="text" id="yourself" name="yourself" placeholder="TF-505 A. Swanson" />
-				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-				<div class="popup" onclick="copy()">
-					<div class="btn" title="Copy the generated report to your clipboard">Copy Report</div>
-					<span class="popuptext" id="myPopup">Report copied!</span>
-				</div>
-            </div>
-			<div class="form-group">
-                <label>What is your department: </label>
-                <div class="form-group layer-2">
-                    <input type="radio" id="div1" name="division" value="SASP" checked />
-                    <label for="div1">SASP</label> 
-                    <input type="radio" id="div2" name="division" value="BCSO" />
-                    <label for="BCSO">BCSO</label>
-					<input type="radio" id="div3" name="division" value="SAHP" />
-                    <label for="SAHP">SAHP</label> 
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Officers Involved (excluding yourself):</label>
-				<input type="text" id="officersearch" name="officersearch" placeholder="222 Char..."></textarea>
-				<div id="officerslist"></div><br />
-				<div id="officersAdded"></div>
-                <!--
+<head>
+	<meta charset="UTF-8">
+	<title>Report Generator</title>
+	<link rel="shortcut icon" href="images/favicon.ico" />
+	<link rel="stylesheet" href="index.css" />
+	<link rel="stylesheet" href="../style/font-awesome-4.7.0/css/font-awesome.min.css"> </head>
+
+<body onLoad="loadDarkmode()">
+	<div id="form">
+		<div class="form-group">
+			<input type="checkbox" id="darkmode" name="darkmode" value="darkmode" />
+			<label for="darkmode">Darkmode</label>
+			<br />
+			<label class="inline" title="(You only have to do this once - it will cache)" style="border-bottom: 1px dotted #000; text-decoration: none;">Your callsign/name:</label>
+			<input type="text" id="yourself" name="yourself" placeholder="TF-505 A. Swanson" /> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<div class="popup" onclick="copy()">
+				<div class="btn" title="Copy the generated report to your clipboard">Copy Report</div> <span class="popuptext" id="myPopup">Report copied!</span> </div>
+		</div>
+		<div class="form-group">
+			<label>What is your department: </label>
+			<div class="form-group layer-2">
+				<input type="radio" id="div1" name="division" value="SASP" checked />
+				<label for="div1">SASP</label>
+				<input type="radio" id="div2" name="division" value="BCSO" />
+				<label for="BCSO">BCSO</label>
+				<input type="radio" id="div3" name="division" value="SAHP" />
+				<label for="SAHP">SAHP</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<label>Officers Involved (excluding yourself):</label>
+			<input type="text" id="officersearch" name="officersearch" placeholder="222 Char...">
+			<div id="officerslist"></div>
+			<br />
+			<div id="officersAdded"></div>
+			<!--
 				<textarea id="officers" name="officers" placeholder="222 C. Ives&#10;202 H. Peters&#10;..."></textarea>
 				-->
-            </div>
-            <div class="form-group">
-                <label class="inline">Suspect:</label>
-                <input type="text" id="suspect" name="suspect" placeholder="Steve Jobs (1234)" />
-            </div>
-            <div class="form-group">
-                <input type="checkbox" id="fingerprint" name="fingerprint" value="Fingerprint" />
-                <label for="fingerprint">Suspect was identified via fingerprint</label>
-            </div>
-            <div class="form-group">
-                <label class="inline">Total number of suspects:</label>
-                <input type="number" min="1" max="10" id="suspects" placeholder="2" name="suspects" />
-            </div>
-            <div class="form-group">
-                <label>Confiscated Items (Evidence Log):</label>
-                <textarea id="confiscated" name="confiscated" placeholder="1x Normal Pistol (No Serial)&#10;3x Thermite&#10;..."></textarea>
-            </div>
-            <div class="form-group">
-                <label>Witnesses:</label>
-                <textarea id="witnesses" name="witnesses" placeholder="Theo Pearson (Hostage) - 617-2154&#10;Logan Saunders (524-2143) &#10;..."></textarea>
-            </div>
-            <div class="form-group">
-                <label>Evidence:</label>
-                <textarea id="evidence" name="evidence" placeholder="Pictures taken from security camera&#10;Bullet casings coming back to ..."></textarea>
-            </div>
-            <div class="form-group">
-                <label>What the fuck happened:</label>
-                
-                <div class="form-group layer-2">
-                    <input type="checkbox" id="jewlery" name="jewlery" value="jewlery" />
-                    <label for="jewlery">Armed Robbed of a Jewlery Store</label>
-                </div>
-                <div class="form-group layer-2">
-                    <input type="checkbox" id="bank" name="bank" value="bank" />
-                    <label for="bank">Armed Robbed of a Bank (Which?) <input type="text" id="whichBank" name="whichBank" /></label>
-                </div>
-				<div class="form-group layer-2">
-                    <input type="checkbox" id="shop" name="shop" value="shop" />
-                    <label for="shop">Armed Robbed of a Shop (Which?) <input type="text" id="whichShop" name="whichShop" /></label>
-                </div>
-                <div class="form-group layer-2">
-                    <input type="checkbox" id="kidnapping" name="kidnapping" value="kidnapping" />
-                    <label for="kidnapping">Kidnapping (How many hostages?) <input type="number" min="0" max="20" id="hostages" name="hostages" /></label>
-                </div>
-                <div class="form-group layer-2">
-                    <input type="checkbox" id="fpassage" name="fpassage" value="fpassage" />
-                    <label for="fpassage">Free passage no spikes (More Demands?) <input type="text" id="moreDemands" name="moreDemands" /></label>
-                </div>
-                <div class="form-group layer-2">
-                    <input type="checkbox" id="shotgun" name="shotgun" value="shotgun" />
-                    <label for="shotgun">Dropped shotgun for another demand (Which?) <input type="text" id="otherDemand" name="otherDemand" /></label>
-                </div>
-				<div class="form-group layer-2">
-                    <input type="checkbox" id="drugsale" name="drugsale" value="drugsale" />
-                    <label for="drugsale">Caught drug sales handoff (What drugs?)</label> <input type="text" id="drugs" name="drugs" /></label>
-                </div>
-				<div class="form-group layer-2">
-                    <input type="checkbox" id="houserobbery" name="houserobbery" value="houserobbery" />
-                    <label for="houserobbery">Caught coming out of house robbery (Area?)</label> <input type="text" id="houserobberyarea" name="houserobberyarea" /></label>
-                </div>
-                <div class="form-group layer-2">
-                    <input type="checkbox" id="fevading" name="fevading" value="fevading" />
-                    <label for="fevading">Felony Evading</label>
-                </div>
-                <div class="form-group layer-2">
-                    <input type="checkbox" id="evading" name="evading" value="evading" />
-                    <label for="evading">Evading</label>
-                </div>
-				<div class="form-group layer-2">
-                    <input type="checkbox" id="shotcops" name="shotcops" value="shotcops" />
-                    <label for="shotcops">Shot police officers</label> <label class="inline">(How many?)</label>
-					<input type="number" min="1" max="12" id="shotcopsnum" placeholder="2" name="shotcopsnum" />
-                </div>
-                <div class="form-group layer-2">
-                    <input type="checkbox" id="resisting" name="resisting" value="resisting" />
-                    <label for="resisting">Resisting a Peace Officer</label>
-                </div>
-				<div class="form-group layer-2">
-                    <input type="checkbox" id="medical" name="medical" value="medical" />
-                    <label for="medical">Suspect received medical treatment</label>
-                </div>
-				<div class="form-group layer-2">
-					<label>"Other" (Placement:<input type="radio" id="otherbefore" name="otherwhere" value="BEFORE" checked />
-                    <label for="otherbefore">Top</label>
-                    <input type="radio" id="otherafter" name="otherwhere" value="AFTER" />
-                    <label for="otherafter">Bottom</label>)</label><br />
-					<textarea class="long" id="other" name="other" placeholder="Suspect did this at the place...&#10;Suspect jaywalked..."></textarea><br />
-				</div>
-            </div>
-            <div class="form-group">
-                <label>How do they plea?</label>
-                <div class="form-group layer-2">
-                    <input type="radio" id="plea1" name="plea" value="GUILTY" checked />
-                    <label for="plea1">Guilty</label> 
-                    <input type="radio" id="plea2" name="plea" value="NOT GUILTY" />
-                    <label for="plea2">Not Guilty</label> 
-                    <input type="radio" id="plea3" name="plea" value="NO CONTEST" />
-                    <label for="plea3">No Contest</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>How fucked are they?</label>
-                <input type="text" class="invisible" id="months" name="months" max="9999" min="1" /> months / $<input type="text" class="invisible" min="1" max="20000" id="fine" name="fine" />
-            </div>
-			<div class="form-group">
-				<label>Was time reduced?</label>
-                <div class="form-group layer-2">
-                    <input type="radio" id="yreduce" name="reduced" value="REDUCED" checked />
-                    <label for="yreduce">Yes</label> 
-                    <input type="radio" id="nreduce" name="reduced" value="NOT REDUCED" />
-                    <label for="nreduce">No</label> 
-                </div>
-            </div>
-			<div class="form-group">
-                <label>Which Police Department were they processed at?</label>
-                <input type="text" id="pd" name="pd" placeholder="MRPD" /></label>
-            </div>
-        </div>
-        <pre id="reportBody">[report will automatically generate as you fill out the form to the left]</pre>
-        
-        <script src="reports.js"></script>
-    </body>
+		</div>
+		<div class="form-group">
+			<label class="inline">Suspect:</label>
+			<input type="text" id="suspect" name="suspect" placeholder="Steve Jobs (1234)" /> </div>
+		<div class="form-group">
+			<input type="checkbox" id="fingerprint" name="fingerprint" value="Fingerprint" />
+			<label for="fingerprint">Suspect was identified via fingerprint</label>
+		</div>
+		<div class="form-group">
+			<label class="inline">Total number of suspects:</label>
+			<input type="number" min="1" max="10" id="suspects" placeholder="2" name="suspects" /> </div>
+		<div class="form-group">
+			<label>Confiscated Items (Evidence Log):</label>
+			<textarea id="confiscated" name="confiscated" placeholder="1x Normal Pistol (No Serial)&#10;3x Thermite&#10;..."></textarea>
+		</div>
+		<div class="form-group">
+			<label>Witnesses:</label>
+			<textarea id="witnesses" name="witnesses" placeholder="Theo Pearson (Hostage) - 617-2154&#10;Logan Saunders (524-2143) &#10;..."></textarea>
+		</div>
+		<div class="form-group">
+			<label>Evidence:</label>
+			<textarea id="evidence" name="evidence" placeholder="Pictures taken from security camera&#10;Bullet casings coming back to ..."></textarea>
+		</div>
+		<div class="form-group">
+			<label>What the fuck happened:</label>
+			<div class="form-group layer-2">
+				<input type="checkbox" id="jewlery" name="jewlery" value="jewlery" />
+				<label for="jewlery">Armed Robbed of a Jewlery Store</label>
+			</div>
+			<div class="form-group layer-2">
+				<input type="checkbox" id="bank" name="bank" value="bank" />
+				<label for="bank">Armed Robbed of a Bank (Which?)
+					<input type="text" id="whichBank" name="whichBank" />
+				</label>
+			</div>
+			<div class="form-group layer-2">
+				<input type="checkbox" id="shop" name="shop" value="shop" />
+				<label for="shop">Armed Robbed of a Shop (Which?)
+					<input type="text" id="whichShop" name="whichShop" />
+				</label>
+			</div>
+			<div class="form-group layer-2">
+				<input type="checkbox" id="kidnapping" name="kidnapping" value="kidnapping" />
+				<label for="kidnapping">Kidnapping (How many hostages?)
+					<input type="number" min="0" max="20" id="hostages" name="hostages" />
+				</label>
+			</div>
+			<div class="form-group layer-2">
+				<input type="checkbox" id="fpassage" name="fpassage" value="fpassage" />
+				<label for="fpassage">Free passage no spikes (More Demands?)
+					<input type="text" id="moreDemands" name="moreDemands" />
+				</label>
+			</div>
+			<div class="form-group layer-2">
+				<input type="checkbox" id="shotgun" name="shotgun" value="shotgun" />
+				<label for="shotgun">Dropped shotgun for another demand (Which?)
+					<input type="text" id="otherDemand" name="otherDemand" />
+				</label>
+			</div>
+			<div class="form-group layer-2">
+				<input type="checkbox" id="drugsale" name="drugsale" value="drugsale" />
+				<label for="drugsale">Caught drug sales handoff (What drugs?)</label>
+				<input type="text" id="drugs" name="drugs" />
+			</div>
+			<div class="form-group layer-2">
+				<input type="checkbox" id="houserobbery" name="houserobbery" value="houserobbery" />
+				<label for="houserobbery">Caught coming out of house robbery (Area?)</label>
+				<input type="text" id="houserobberyarea" name="houserobberyarea" />
+			</div>
+			<div class="form-group layer-2">
+				<input type="checkbox" id="fevading" name="fevading" value="fevading" />
+				<label for="fevading">Felony Evading</label>
+			</div>
+			<div class="form-group layer-2">
+				<input type="checkbox" id="evading" name="evading" value="evading" />
+				<label for="evading">Evading</label>
+			</div>
+			<div class="form-group layer-2">
+				<input type="checkbox" id="shotcops" name="shotcops" value="shotcops" />
+				<label for="shotcops">Shot police officers</label>
+				<label class="inline">(How many?)</label>
+				<input type="number" min="1" max="12" id="shotcopsnum" placeholder="2" name="shotcopsnum" /> </div>
+			<div class="form-group layer-2">
+				<input type="checkbox" id="resisting" name="resisting" value="resisting" />
+				<label for="resisting">Resisting a Peace Officer</label>
+			</div>
+			<div class="form-group layer-2">
+				<input type="checkbox" id="medical" name="medical" value="medical" />
+				<label for="medical">Suspect received medical treatment</label>
+			</div>
+			<div class="form-group layer-2">
+				<label>"Other" (Placement:
+					<input type="radio" id="otherbefore" name="otherwhere" value="BEFORE" checked />
+					<label for="otherbefore">Top</label>
+					<input type="radio" id="otherafter" name="otherwhere" value="AFTER" />
+					<label for="otherafter">Bottom</label>)</label>
+				<br />
+				<textarea class="long" id="other" name="other" placeholder="Suspect did this at the place...&#10;Suspect jaywalked..."></textarea>
+				<br /> </div>
+		</div>
+		<div class="form-group">
+			<label>How do they plea?</label>
+			<div class="form-group layer-2">
+				<input type="radio" id="plea1" name="plea" value="GUILTY" checked />
+				<label for="plea1">Guilty</label>
+				<input type="radio" id="plea2" name="plea" value="NOT GUILTY" />
+				<label for="plea2">Not Guilty</label>
+				<input type="radio" id="plea3" name="plea" value="NO CONTEST" />
+				<label for="plea3">No Contest</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<label>How fucked are they?</label>
+			<input type="text" class="invisible" id="months" name="months" max="9999" min="1" /> months / $
+			<input type="text" class="invisible" min="1" max="20000" id="fine" name="fine" /> </div>
+		<div class="form-group">
+			<label>Was time reduced?</label>
+			<div class="form-group layer-2">
+				<input type="radio" id="yreduce" name="reduced" value="REDUCED" checked />
+				<label for="yreduce">Yes</label>
+				<input type="radio" id="nreduce" name="reduced" value="NOT REDUCED" />
+				<label for="nreduce">No</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<label>Which Police Department were they processed at?</label>
+			<input type="text" id="pd" name="pd" placeholder="MRPD" />
+		</div>
+	</div> <pre id="reportBody">[report will automatically generate as you fill out the form to the left]</pre>
+	<script src="reports.js"></script>
+</body>
+
 </html>
