@@ -237,7 +237,7 @@ function updateDarkmode() {
 
 function loadDarkmode() {
 	let darkmodeSetting = localStorage.getItem("darkmode");
-	if (darkmodeSetting === 'undefined' || darkmodeSetting === 'false') {
+	if (!darkmodeSetting || darkmodeSetting === 'undefined' || darkmodeSetting === 'false') {
 		localStorage.setItem("darkmode", false);
 		darkmodeState = 'false';
 	}
