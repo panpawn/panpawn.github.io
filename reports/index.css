@@ -58,6 +58,13 @@ textarea {
     height: 100px;
 }
 
+.long {
+    padding: 3px;
+    resize: none;
+    width: 400px;
+    height: 135px;
+}
+
 textarea, input[type="text"], input[type="number"] {
     border: 1px solid #a8a8a8;
     border-radius: 2px;
