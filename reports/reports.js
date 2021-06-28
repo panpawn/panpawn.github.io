@@ -63,8 +63,8 @@ function report() {
 	let otherBefore = document.getElementById('otherbefore').checked;
 	let otherAfter = document.getElementById('otherafter').checked;
 	let reduced = (reduced1 ? "YES" : "NO");
-	let pd = document.getElementById('pd').value || "";
-	if (pd) pd = "The suspect was processed at " + pd + ". ";
+	let pd = document.getElementById('pd').value || "MRPD";
+	pd = "The suspect was processed at " + pd + ". ";
 	let drugsales = document.getElementById('drugsale').checked;
 	let drugs = document.getElementById('drugs').value || "";
 	if (drugs) drugs = "The type of drug this person was selling was " + drugs + ". ";
