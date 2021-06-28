@@ -41,6 +41,8 @@ function report() {
 	hostages = hostages + " hostage" + (Number(hostages) > 1 ? "s" : "");
 	let fevading = document.getElementById('fevading').checked;
 	let evading = document.getElementById('evading').checked;
+	let shotCops = document.getElementById('shotcops').checked;
+	let howManyCopsShot = document.getElementById('shotcopsnum').value || 1;
 	let resisting = document.getElementById('resisting').checked;
 	let whichBank = document.getElementById('whichBank').value.trim() || '[missing]';
 	let fpassage = document.getElementById('fpassage').checked;
@@ -128,6 +130,9 @@ function report() {
 	}
 	if (resisting) {
 		summary += "The suspect resisted arrest by running from police. The suspect in question ended up getting caught. ";
+	}
+	if (shotCops) {
+		summary += "The suspect shot " + howManyCopsShot + " police officer(s) with a firearm. Police returned fire had no choice but to incapacitate the suspect. ";
 	}
 	if (medical) {
 		summary += "The suspect got injured before reaching police custody, so they were offered and received medical treatment by medical professionals. ";

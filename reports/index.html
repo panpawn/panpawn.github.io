@@ -110,6 +110,11 @@
                     <input type="checkbox" id="evading" name="evading" value="evading" />
                     <label for="evading">Evading</label>
                 </div>
+				<div class="form-group layer-2">
+                    <input type="checkbox" id="shotcops" name="shotcops" value="shotcops" />
+                    <label for="shotcops">Shot police officers</label> <label class="inline">(How many?)</label>
+					<input type="number" min="1" max="12" id="shotcopsnum" placeholder="2" name="shotcopsnum" />
+                </div>
                 <div class="form-group layer-2">
                     <input type="checkbox" id="resisting" name="resisting" value="resisting" />
                     <label for="resisting">Resisting a Peace Officer</label>
@@ -154,9 +159,6 @@
                 <label>Which Police Department were they processed at?</label>
                 <input type="text" id="pd" name="pd" placeholder="MRPD" /></label>
             </div>
-            <!--
-			<button onClick="report()">Generate Report</button>
-			!-->
         </div>
         <pre id="reportBody">[report will automatically generate as you fill out the form to the left]</pre>
         
