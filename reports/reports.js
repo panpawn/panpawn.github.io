@@ -221,7 +221,7 @@ function report() {
 		if (darkmodeState === 'true') updateDarkmode();
 	}
 
-	return document.getElementById('reportBody').innerHTML = buffer.join("<br />");
+	return document.getElementById('reportBody').innerHTML = buffer.join("\n");
 }
 
 let inputs = document.querySelectorAll('input[type="text"], input[type="number"], textarea');
@@ -292,7 +292,7 @@ function searchOfficer(search) {
 		result = result.trim();
 		finalResults.push("<button title='Add this officer to the list of officers involved' onClick='toggleOfficer(\"" + result + "\")'>" + result + "</button>");
 	});
-	document.getElementById('officerslist').innerHTML = finalResults.join("<br />");
+	document.getElementById('officerslist').innerHTML = finalResults.join("\n");
 }
 
 function toggleOfficer(id) {
