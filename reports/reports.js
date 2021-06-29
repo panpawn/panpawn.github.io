@@ -51,7 +51,8 @@ function report() {
 	let otherDemand = document.getElementById('otherDemand').value.trim();
 	let witnesses = document.getElementById('witnesses').value.trim();
 	let evidence = document.getElementById('evidence').value.trim();
-	let confiscated = document.getElementById('confiscated').value.trim();
+	let confiscatedDNR = document.getElementById('confiscateddnr').value.trim();
+	let confiscatedTBR = document.getElementById('confiscatedtbr').value.trim();
 	let months = document.getElementById('months').value || 0;
 	let fine = document.getElementById('fine').value || 0;
 	let plea1 = document.getElementById('plea1').checked;
@@ -63,8 +64,7 @@ function report() {
 	let otherBefore = document.getElementById('otherbefore').checked;
 	let otherAfter = document.getElementById('otherafter').checked;
 	let reduced = (reduced1 ? "YES" : "NO");
-	let pd = document.getElementById('pd').value || "MRPD";
-	pd = "The suspect was processed at " + pd + ". ";
+	let pd = document.getElementById('pd').value.trim() || "MRPD";
 	let drugsales = document.getElementById('drugsale').checked;
 	let drugs = document.getElementById('drugs').value || "";
 	if (drugs) drugs = "The type of drug this person was selling was " + drugs + ". ";
@@ -137,7 +137,7 @@ function report() {
 	if (medical) {
 		summary += "The suspect got injured before reaching police custody, so they were offered and received medical treatment by medical professionals. ";
 	}
-	summary += pd;
+	summary += "The suspect was processed at " + pd + ". ";;
 
 	searchOfficer(officersearch);
 	buffer.push(...officersInvolved.values());
@@ -175,12 +175,21 @@ function report() {
 	}
 	buffer.push("");
 	buffer.push("[EVIDENCE LOG]:");
-	if (confiscated === '') {
-		buffer.push("N/A");
-	} else {
-		confiscated = confiscated.split('\n');
-		buffer.push(...confiscated);
+	let evidenceLogAdded = false;
+	if (confiscatedDNR) {
+		buffer.push("*DNR*");
+		confiscatedDNR = confiscatedDNR.split('\n');
+		buffer.push(...confiscatedDNR);
+		evidenceLogAdded = true;
 	}
+	if (confiscatedTBR) {
+		buffer.push("*TBR (@ " + pd + ")*");
+		confiscatedTBR = confiscatedTBR.split('\n');
+		buffer.push(...confiscatedTBR);
+		evidenceLogAdded = true;
+	}
+	if (!evidenceLogAdded) buffer.push("N/A");
+
 	buffer.push("");
 
 	buffer.push("[CHARGES]:")
