@@ -75,7 +75,7 @@ function report() {
 
 	let summary = (otherBefore && other ? other + " " : "") || "";
 	if (jewlery) {
-		summary += callsign + " responded to a call of a Jewlery Store being robbed. " +
+		summary += callsign + " responded to a call of a Jewellery Store being robbed. " +
 			"Upon arriving on scene, we noticed there " + (suspects.endsWith("s") ? 'were' : 'was') + " " + suspects + ". "
 	}
 	if (bank) {
