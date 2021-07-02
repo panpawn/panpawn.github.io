@@ -9,7 +9,7 @@ function report() {
 	if (callsign) localStorage.setItem('callsign', callsign);
 	if (!callsign && localStorage.getItem('callsign')) callsign = localStorage.getItem('callsign');
 	if (!callsign) callsign = '[missing]';
-	const ind = "          ";
+	const ind = "        ";
 	let div1 = document.getElementById('div1').checked;
 	let div2 = document.getElementById('div2').checked;
 	let div3 = document.getElementById('div3').checked;
@@ -17,12 +17,17 @@ function report() {
 	if (div1) department = "SASP";
 	if (div2) department = "BCSO";
 	if (div3) department = "SAHP";
+	let title = document.getElementById('title').value.trim() || "";
 	let date = new Date().toLocaleDateString('en-US');
 
 	buffer = [];
+	if (title) {
+		buffer.push("[TITLE]: " + title);
+		buffer.push("");
+	}
 	buffer.push("[DEPARTMENT]: " + department +
 		ind + "[DATE]: " + date + ind +
-		"[OFFICER]: " + callsign);
+		"[ARRESTING OFFICER]: " + callsign);
 	buffer.push("");
 	buffer.push("[OFFICERS INVOLVED]:");
 	buffer.push(callsign);

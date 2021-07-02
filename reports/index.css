@@ -58,6 +58,13 @@ textarea {
     height: 100px;
 }
 
+.narrow {
+    padding: 3px;
+    resize: none;
+    width: 400px;
+	height: 25px;
+}
+
 .long {
     padding: 3px;
     resize: none;
