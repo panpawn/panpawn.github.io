@@ -77,6 +77,8 @@ function report() {
 	let houserobberyarea = document.getElementById('houserobberyarea').value || "";
 	if (houserobberyarea) houserobberyarea = "The " + houserobberyarea + " area was where the suspect was caught robbing houses. ";
 	let other = document.getElementById('other').value.trim() || "";
+	let linked = document.getElementById('linked').value.trim() || "";
+	if (linked) linked = linked.split(',');
 
 	let summary = (otherBefore && other ? other + " " : "") || "";
 	if (jewlery) {
@@ -218,6 +220,14 @@ function report() {
 	}
 	buffer.push("[PLEA]:");
 	buffer.push("SUSPECT PLEAD " + plea + " TO ALL CHARGES");
+
+	if (linked) {
+		buffer.push("");
+		linked.forEach(incident => {
+			buffer.push("[Linked Incident]:[[" + incident.trim() + "]]");
+			buffer.push("");
+		});
+	}
 
 	let curDarkmode = document.getElementById('darkmode').checked;
 	if (curDarkmode) {
