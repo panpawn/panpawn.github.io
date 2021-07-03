@@ -337,7 +337,7 @@ function updateOfficers() {
 		output += `</div>`
 	}
 
-	document.getElementById('officersAdded').innerHTML = output;
+	document.getElementById('officersAdded').innerHTML = "<br />" + output;
 }
 
 function showCopiedPopup() {
@@ -372,7 +372,7 @@ function copy() {
 			} else if (document.selection) {
 				document.selection.empty();
 			}
-			showCopiedPopup()
+			showCopiedPopup();
 		}
 		doCopy = false;
 	}, false);
