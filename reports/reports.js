@@ -224,8 +224,10 @@ function report() {
 	if (linked) {
 		buffer.push("");
 		linked.forEach(incident => {
-			buffer.push("[Linked Incident]:[[" + incident.trim() + "]]");
-			buffer.push("");
+			if (incident) {
+				buffer.push("[Linked Incident]:[[" + incident.trim() + "]]");
+				buffer.push("");
+			}
 		});
 	}
 
