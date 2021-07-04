@@ -348,10 +348,9 @@ function showCopiedPopup() {
 	}, 3500);
 }
 
-const reportBody = document.getElementById('reportBody');
-reportBody.addEventListener('click', copy, false);
+document.getElementById('copyReport').addEventListener('click', copy, false);
 function copy() {
-	reportBody.select();
+	document.getElementById('reportBody').select();
 	try {
 		document.execCommand('copy');
 		showCopiedPopup();
