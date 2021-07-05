@@ -349,11 +349,19 @@ function showCopiedPopup() {
 }
 
 document.getElementById('copyReport').addEventListener('click', copy, false);
+function clearSelection() {
+	if (window.getSelection) {
+		window.getSelection().removeAllRanges();
+	} else if (document.selection) {
+		document.selection.empty();
+	}
+}
 function copy() {
 	document.getElementById('reportBody').select();
 	try {
 		document.execCommand('copy');
 		showCopiedPopup();
+		clearSelection();
 	} catch(e) {
 		console.log("Copy error: " + e);
 	}
