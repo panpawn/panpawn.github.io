@@ -348,33 +348,13 @@ function showCopiedPopup() {
 	}, 3500);
 }
 
-let doCopy = false;
-
+document.getElementById('copyReport').addEventListener('click', copy, false);
 function copy() {
-	doCopy = true;
-	document.getElementById('reportBody').addEventListener('click', function() {
-		if (doCopy) {
-			let range, selection;
-			if (document.body.createTextRange) {
-				range = document.body.createTextRange();
-				range.moveToElementText(this);
-				range.select();
-			} else if (window.getSelection) {
-				selection = window.getSelection();
-				range = document.createRange();
-				range.selectNodeContents(this);
-				selection.removeAllRanges();
-				selection.addRange(range);
-			}
-			document.execCommand("copy");
-			if (window.getSelection) {
-				window.getSelection().removeAllRanges();
-			} else if (document.selection) {
-				document.selection.empty();
-			}
-			showCopiedPopup();
-		}
-		doCopy = false;
-	}, false);
-	document.getElementById('reportBody').click();
+	document.getElementById('reportBody').select();
+	try {
+		document.execCommand('copy');
+		showCopiedPopup();
+	} catch(e) {
+		console.log("Copy error: " + e);
+	}
 }
