@@ -292,7 +292,7 @@ function searchOfficer(search) {
 		try {
 			officers = JSON.parse(xhr.responseText).data;
 
-			officers = officers.map(officer => officer.callsign + ' ' + officer.full_name);
+			officers = officers.map(officer => officer.callsign + ' ' + officer.full_name.replace('Bucky Killbourne', 'Bucky Langston').replace('Xander Langston', 'Xander Killbourne'));
 		} catch (e) {
 			console.error('Failed to load officers');
 			return false;
