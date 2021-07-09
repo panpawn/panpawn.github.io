@@ -272,18 +272,13 @@ function loadDarkmode() {
 		document.body.classList.toggle('dark-theme');
 		darkmodeState = 'true';
 	}
+	loadOfficers();
 }
 
 let officers = null;
 let matched = [];
 
-function searchOfficer(search) {
-	if (!search) {
-		document.getElementById('officerslist').innerHTML = '';
-		return;
-	}
-	search = search.toLowerCase();
-
+function loadOfficers() {
 	if (!officers) {
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", "https://celestial.network/legacyrp/sasp", false);
@@ -298,6 +293,16 @@ function searchOfficer(search) {
 			return false;
 		}
 	}
+}
+
+function searchOfficer(search) {
+	if (!search) {
+		document.getElementById('officerslist').innerHTML = '';
+		return;
+	}
+	search = search.toLowerCase();
+
+	if (!officers) loadOfficers();
 
 	let results = officers.filter(officer => officer.toLowerCase().includes(search));
 	let resultsCap = 5;
