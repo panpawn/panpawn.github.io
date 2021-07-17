@@ -279,18 +279,24 @@ let officers = null;
 let matched = [];
 
 function loadOfficers() {
+	let cachedOfficers = localStorage.getItem("officers");
 	if (!officers) {
 		let xhr = new XMLHttpRequest();
-		xhr.open("GET", "https://celestial.network/legacyrp/sasp", false);
-		xhr.send(null);
-
 		try {
-			officers = JSON.parse(xhr.responseText).data;
+			xhr.open("GET", "https://celestial.network/legacyrp/sasp", false);
+			xhr.send(null);
 
+			officers = JSON.parse(xhr.responseText).data;
 			officers = officers.map(officer => officer.callsign + ' ' + officer.full_name.replace('Bucky Killbourne', 'Bucky Langston').replace('Xander Langston', 'Xander Killbourne'));
+			localStorage.setItem('officers', xhr.responseText);
 		} catch (e) {
-			console.error('Failed to load officers');
-			return false;
+			if (cachedOfficers) {
+				cachedOfficers = JSON.parse(cachedOfficers).data;
+				officers = cachedOfficers.map(officer => officer.callsign + ' ' + officer.full_name);
+				alert('Failed to load officers data from roster; using cached officers data...');
+			} else {
+				alert('Failed to load officers data from roster & no cache value stored!');
+			}
 		}
 	}
 }
