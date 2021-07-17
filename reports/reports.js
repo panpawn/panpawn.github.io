@@ -75,7 +75,7 @@ function report() {
 	if (drugs) drugs = "The type of drug this person was selling was " + drugs + ". ";
 	let houserobbery = document.getElementById('houserobbery').checked;
 	let houserobberyarea = document.getElementById('houserobberyarea').value || "";
-	if (houserobberyarea) houserobberyarea = "The " + houserobberyarea + " area was where the suspect was caught robbing houses. ";
+	if (houserobberyarea) houserobberyarea =  houserobberyarea.trim() + " area. ";
 	let other = document.getElementById('other').value.trim() || "";
 	let linked = document.getElementById('linked').value.trim() || "";
 	if (linked) linked = linked.split(',');
@@ -123,20 +123,23 @@ function report() {
 	}
 
 	if (drugsales) {
-		summary += "The suspect was caught doing a handoff in the area of a reported drug sale. " + drugs;
+		summary += callsign + " responded to a call of drug sales. Upon arriving on scene, " + callsign +
+		" caught the suspect doing a handoff. " + drugs;
 	}
 
 	if (houserobbery) {
-		summary += "The suspect was coming out of a house that was reported being robbed. " + houserobberyarea;
+		summary += callsign + " responded to a call of a house being robbed" +
+		(houserobberyarea ? " in the " + houserobberyarea : ". ") + "Upon arriving on scene, " + callsign +
+		" caught the suspect coming out of the same house that was reported being robbed. ";
 	}
 
 	if (fevading) {
-		summary += "The " + suspects + " attempted to evade police recklessly. The suspect in question ended up getting caught. ";
+		summary += "The suspect attempted to evade police recklessly. ";
 	} else if (evading) {
-		summary += "The " + suspects + " attempted to evade police. The suspect in question ended up getting caught. ";
+		summary += "The suspect attempted to evade police. ";
 	}
 	if (resisting) {
-		summary += "The suspect resisted arrest by running from police. The suspect in question ended up getting caught. ";
+		summary += "The suspect resisted arrest by running from police on foot. ";
 	}
 	if (shotCops) {
 		summary += "The suspect shot " + howManyCopsShot + " police officer(s) with a firearm. Police returned fire had no choice but to incapacitate the suspect. ";
@@ -144,6 +147,7 @@ function report() {
 	if (medical) {
 		summary += "The suspect got injured before reaching police custody, so they were offered and received medical treatment by medical professionals. ";
 	}
+	summary += "The suspect in question ended up getting caught. ";
 	summary += "The suspect was processed at " + pd + ". ";;
 
 	searchOfficer(officersearch);
