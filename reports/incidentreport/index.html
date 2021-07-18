@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Incident Report Generator</title>
+	<link rel="shortcut icon" href="../images/favicon.ico" />
+	<link rel="stylesheet" href="../index.css" />
+	<link rel="stylesheet" href="../../style/font-awesome-4.7.0/css/font-awesome.min.css"> </head>
+
+<body onLoad="loadDarkmode()">
+	<div id="form">
+		<div class="form-group">
+			<span style="font-weight: bold;">Incident Report Generator</span> | <a href="../index.html">(Arrest report generator)</a><br />
+			<input type="checkbox" id="darkmode" name="darkmode" value="darkmode" />
+			<label for="darkmode">Darkmode</label>
+			<br />
+			<label class="inline" title="(You only have to do this once - it will cache)" style="border-bottom: 1px dotted #000; text-decoration: none;">Your callsign/name:</label>
+			<input type="text" id="yourself" name="yourself" placeholder="TF-505 A. Swanson" /> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<div class="popup" id="copyReport">
+				<div class="btn" title="Copy the generated report to your clipboard">Copy Report</div> <span class="popuptext" id="myPopup">Report copied!</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label>What is your department: </label>
+			<div class="form-group layer-2">
+				<input type="radio" id="div1" name="division" value="SASP" checked />
+				<label for="div1">SASP</label>
+				<input type="radio" id="div2" name="division" value="BCSO" />
+				<label for="BCSO">BCSO</label>
+				<input type="radio" id="div3" name="division" value="SAHP" />
+				<label for="SAHP">SAHP</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<label>Report Title:</label>
+			<textarea class="narrow" id="title" name="title" placeholder="Dumbfuck blows up after chase"></textarea>
+		</div>
+		<div class="form-group">
+			<label>Officers Involved (excluding yourself):</label>
+			<span>Search: </span><input type="text" id="officersearch" name="officersearch" placeholder="222 Char...">
+			<div id="officerslist"></div>
+			<div id="officersAdded"></div>
+		</div>
+		<div class="form-group">
+			<label class="inline">Suspects involved:</label><br />
+			<textarea id="suspect" name="suspect" placeholder="Adam Swanson&#10;The Butcher&#10;..."></textarea><br />
+		</div>
+		<div class="form-group">
+			<label>Witnesses:</label>
+			<textarea id="witnesses" name="witnesses" placeholder="Theo Pearson (Hostage) - 617-2154&#10;Logan Saunders (524-2143) &#10;..."></textarea>
+		</div>
+		<div class="form-group">
+			<label>Evidence/Photographs:</label>
+			<textarea class="wide" id="evidence" name="evidence" placeholder="Pictures taken from security camera...&#10;Pictures of crime scene...&#10;(Note: '| SC' is replaced with '| Security Camera Photo')"></textarea>
+		</div>
+		<div class="form-group">
+			<label>What the fuck happened:</label>
+			<div class="form-group layer-2">
+				<textarea class="long" id="other" name="other" placeholder="Suspect did this at the place...&#10;Suspect jaywalked..."></textarea>
+				<br /> </div>
+		</div>
+		<div class="form-group">
+			<label>Weapon serial numbers found:</label>
+			<textarea class="wide" id="serialnumbers" name="serialnumbers" placeholder="Vintage Pistol (SN: 3324192)&#10;Micro SMG (SN: 4592121)"></textarea>
+		</div>
+		<div class="form-group">
+			<label>Linked incident reports (comma separated):</label>
+			<textarea class="narrow" id="linked" name="title" placeholder="100072, 100031, 100021"></textarea>
+		</div>
+		<div>
+			<span><i>Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by Adam Swanson (panpawn#8183) and Charlie Ives (Twootinger#2222)</i></span>
+		</div>
+	</div>
+	<textarea class="wide" id="reportBody">[report will automatically generate as you fill out the form to the left]&#10;&#10;(Note: the generated report will be editable, but once you edit it you can no longer update it based on the form)</textarea>
+	<!--<pre id="reportBody">[report will automatically generate as you fill out the form to the left]</pre> -->
+	<script src="reports.js"></script>
+</body>
+
+</html>

@@ -69,7 +69,7 @@ textarea {
     padding: 3px;
     resize: none;
     width: 400px;
-    height: 135px;
+    height: 200px;
 }
 
 .wide {
@@ -284,4 +284,7 @@ body.dark-theme textarea, body.dark-theme input {
 }
 body.dark-theme textarea::placeholder, body.dark-theme input::placeholder {
 	color: #C1C1C1;  
+}
+body.dark-theme a {
+    color: #48e;
 }
