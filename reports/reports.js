@@ -169,11 +169,12 @@ function report() {
 	}
 	buffer.push("");
 
-	buffer.push("[REPORT OF INCIDENT]: ----------");
+	buffer.push("[REPORT OF INCIDENT]:-----------------------------------------------------------------------------------------------------------------------");
 	if (otherAfter && other) summary += other;
 	buffer.push(summary.trim());
 
 	buffer.push("");
+	buffer.push("-------------------------------------------------------------------------------------------------------------------------------------------------");
 
 	buffer.push("[EVIDENCE]:");
 	if (evidence === '') {
