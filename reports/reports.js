@@ -283,6 +283,11 @@ function loadDarkmode() {
 let officers = null;
 let matched = [];
 
+const replaceNames = {
+	'Bucky Killbourne': 'Bucky Langston',
+	'Xander Langston': 'Xander Killbourne'
+};
+
 function loadOfficers() {
 	let cachedOfficers = localStorage.getItem("officers");
 	if (!officers) {
@@ -292,7 +297,8 @@ function loadOfficers() {
 			xhr.send(null);
 
 			officers = JSON.parse(xhr.responseText).data;
-			officers = officers.map(officer => officer.callsign + ' ' + officer.full_name.replace('Bucky Killbourne', 'Bucky Langston').replace('Xander Langston', 'Xander Killbourne'));
+			officers = officers.map(officer => officer.callsign + ' ' +
+				(replaceNames[officer.full_name] ? replaceNames[officer.full_name] : officer.full_name));
 			localStorage.setItem('officers', xhr.responseText);
 		} catch (e) {
 			if (cachedOfficers) {
