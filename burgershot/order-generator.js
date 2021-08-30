@@ -179,7 +179,7 @@ function report() {
 	buffer.push("<strong>ITEMS ORDERED:</strong>");
 	buffer.push(formatItems(allItems).join('\n'));
 	buffer.push("");
-	buffer.push("<strong>TOTAL:</strong> $" + total);
+	buffer.push("<strong>SUB TOTAL:</strong> $" + total);
 	if (curDarkmode) {
 		if (darkmodeState === 'false') updateDarkmode();
 	} else if (!curDarkmode) {
