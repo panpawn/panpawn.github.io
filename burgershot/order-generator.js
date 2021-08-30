@@ -35,13 +35,6 @@ const menu = {
 		blackout: 77,
 		items: ["Heartstopper", "Milkshake", "Rimjob", "Rimjob", "Rimjob"],
 	},
-	"Mass Murder Meal": {
-		max: 5,
-		price: 141,
-		noDiscount: true,
-		items: ["Meat Free", "Soda", "Soda", "Fries", "Fries", "Desert", "Desert"],
-		// comes with toy?
-	},
 	"Flatliner": {
 		price: 119,
 		blackout: 101,
