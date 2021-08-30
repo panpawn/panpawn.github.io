@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Burgershot Menu</title>
+	<link rel="shortcut icon" href="images/logo.png" />
+	<link rel="stylesheet" href="index.css" />
+	<link rel="stylesheet" href="../style/font-awesome-4.7.0/css/font-awesome.min.css"> </head>
+
+<body onLoad="loadPage()">
+	<div id="form">
+		<div class="form-group">
+			<span style="font-weight: bold;">Burgershot Menu</span><br />
+			<input type="checkbox" id="darkmode" name="darkmode" value="darkmode" />
+			<label for="darkmode">Darkmode</label> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <div class="btn" onClick="window.location.reload();">New Order</div>
+			<br />
+			<!--<label class="inline" title="(You only have to do this once - it will cache)" style="border-bottom: 1px dotted #000; text-decoration: none;">Your callsign/name:</label>
+			<input type="text" id="yourself" name="yourself" placeholder="TF-505 A. Swanson" /> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<div class="popup" id="copyReport">
+				<div class="btn" title="Copy the generated report to your clipboard">Copy Report</div> <span class="popuptext" id="myPopup">Report copied!</span>
+			</div>
+			-->
+			
+		</div>
+		<div class="form-group" id="table">
+			<!-- to be auto-generated on page load -->
+		</div>
+		<div>
+			<span><i>Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by Adam Swanson (panpawn#8183)</i></span>
+		</div>
+	</div>
+	<pre id="reportBody">[order will automatically generate as you fill out the form to the left]</pre>
+	<script src="order-generator.js"></script>
+</body>
+
+</html>
