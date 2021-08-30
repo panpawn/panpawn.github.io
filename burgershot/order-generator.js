@@ -132,7 +132,7 @@ const menu = {
 
 const indivItems = [
 	"Murder Meal", "Heartstopper", "Money Shot", "Torpedo", "Bleeder", "Water", "Meat Free",
-	"Fries", "Soda", "Rimjob", "Cream Pie", "Milkshake", "Toy", "Desert"
+	"Fries", "Soda", "Rimjob", "Cream Pie", "Milkshake", "Toy", "Desert", "Burger"
 ];
 
 function getOccurrence(array, value) {
