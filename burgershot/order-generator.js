@@ -3,8 +3,13 @@
 let buffer = [];
 let officersInvolved = new Set();
 let darkmodeState;
+const tableWidth = 4;
 
 const menu = {
+	// Combo Items:
+	"Combination Items:": {
+		header: true,
+	},
 	"Murder Meal": {
 		max: 5,
 		price: 101,
@@ -103,7 +108,12 @@ const menu = {
 	},
 	"Meat Free Meal": {
 		price: 70,
+		last: true,
 		items: ["Meat Free", "Fries", "Soda"],
+	},
+	// Individual Items:
+	"Individual Items:": {
+		header: true,
 	},
 	"Heartstopper": {
 		price: 40,
@@ -147,6 +157,7 @@ const menu = {
 	},
 	"Cream Pie": {
 		price: 10,
+		last: true,
 		items: ["Cream Pie"],
 	}
 };
@@ -164,12 +175,14 @@ function getOccurrence(array, value) {
 function formatItems(items) {
 	let newArray = [];
 	let imageIcons = '';
+
 	indivItems.forEach(item => {
 		let occ = getOccurrence(items, item);
 		let imageName = item.toLowerCase().replace(' ', '_');
 		let imageIcon = `<img src="images/${imageName}.png" title="${occ}x ${item}" width="30" height="30"> `
 		if (occ > 0) newArray.push(`- ${occ}x ${imageIcon}${item}`);
 	});
+
 	return newArray;
 }
 
@@ -192,6 +205,17 @@ function remove(item) {
 	}
 }
 
+function getEmptyOrder() {
+	buffer = [];
+	buffer.push('<img src="images/bs-logo.svg" width="50%">');
+	buffer.push("");
+	buffer.push("<strong>ITEMS ORDERED:</strong>");
+	buffer.push("");
+	buffer.push("");
+	buffer.push(`<strong>SUB TOTAL:</strong> <span class="green">$0</span>`);
+	document.getElementById('reportBody').innerHTML = buffer.join("\n");
+}
+
 function report() {
 	buffer = [];
 	buffer.push('<img src="images/bs-logo.svg" width="50%">');
@@ -208,6 +232,7 @@ function report() {
 	}
 		
 	Object.keys(menu).forEach(item => {
+		if (menu[item].header) return;
 		let discount = (menu[item].noDiscount ? false : true);
 		let price;
 		if (blackoutSale && menu[item].blackout) {
@@ -267,41 +292,52 @@ function loadPage() {
 		document.body.classList.toggle('dark-theme');
 		darkmodeState = 'true';
 	}
-	let table = '<table border="1"><tr>';
+	let table = '<table><tr>';
 	let count = 0;
 	Object.keys(menu).forEach(item => {
-		let max = menu[item].max || 100;
-		let icon;
-		let comboName = item;
-		if (comboName.includes("Combo") || comboName.includes("Meal")) {
-			if (comboName !== 'Murder Meal') {
-				comboName = comboName.replace(" Combo", "").replace(" Meal", "");
+		if (menu[item].header) {
+			table += `</tr><tr><td colspan="${tableWidth}"><center><strong><u>${item}</u></strong></center></td></tr><tr>`;
+			count = 0;
+		} else {
+			let max = menu[item].max || 100;
+			let icon;
+			let comboName = item;
+			if (comboName.includes("Combo") || comboName.includes("Meal")) {
+				if (comboName !== 'Murder Meal') {
+					comboName = comboName.replace(" Combo", "").replace(" Meal", "");
+				}
+			}
+			if (menu[item].emoji) {
+				icon = menu[item].emoji;
+			} else {
+				let fileName = `${comboName.toLowerCase().replace(' ', '_')}.png`;
+				icon = `<img src="images/${fileName}" width="20" height="20">`;
+			}
+			table += "<td><center><button class=\"btn\" title='Add 1x " + item + "' onClick='add(\"" + item + "\")'><strong>" + icon + item + "</strong></button><br />" +
+			`Qty: <strong><span id="${item}-#">0</span></strong> | $${menu[item].price} | ` +
+			"<i class=\"fa fa-minus-circle\" aria-hidden=\"true\" title='Remove 1x " + item + "' onClick='remove(\"" + item + "\")'></i></td>";
+			count++;
+			if (count == tableWidth) {
+				table += `</tr><tr>`
+				count = 0;
+			}
+			if (menu[item].last) {
+				for (let i = count; i < tableWidth; i++) {
+					console.log('got here: ' + item);
+					table += `<td></td>`;
+				}
 			}
 		}
-		if (menu[item].emoji) {
-			icon = menu[item].emoji;
-		} else {
-			let fileName = `${comboName.toLowerCase().replace(' ', '_')}.png`;
-			icon = `<img src="images/${fileName}" width="20" height="20">`;
-		}
-		table += "<td><center><button class=\"btn\" onClick='add(\"" + item + "\")'><strong>" + icon + item + "</strong></button><br />" +
-		//`${icon}` +
-		`Qty: <strong><span id="${item}-#">0</span></strong> | $${menu[item].price} | ` +
-		"<i class=\"fa fa-minus-circle\" aria-hidden=\"true\" onClick='remove(\"" + item + "\")'></i></td>";
-		//"Qty: <span id=<button class=\"btn\" onClick='add(\"" + item + "\")'>" +
-		//`<input type="number" min="0" max="${max}" id="${item}-#" name="${item}-#" placeholder="0"</center></td>`;
-		count++;
-		if (count == 4) {
-			table += `</tr><tr>`
-			count = 0;
-		}
 	});
-	table += `</tr></table><br />`;
-	table += `<input type="checkbox" id="halfoff" name="halfoff" value="halfoff" />` +
+
+	table += `</tr><tr><td colspan="${tableWidth}"><input type="checkbox" id="halfoff" name="halfoff" value="halfoff" />` +
 		`<label for="halfoff">50% Discount (PD, EMS, BS Employees...)</label><br />` +
 		`<input type="checkbox" id="blackout" name="blackout" value="blackout" />` +
-		`<label for="blackout">Blackout Sale (certain items 15% off)</label>`;
+		`<label for="blackout">Blackout Sale (certain items 15% off)</label></td>`;
+	table += `</tr></table>`;
 	document.getElementById('table').innerHTML = table;
+
+	getEmptyOrder();
 	
 	let inputs = document.querySelectorAll('input[type="text"], input[type="number"], textarea');
 	inputs.forEach(i => i.addEventListener('keyup', report, false));

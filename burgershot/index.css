@@ -30,9 +30,20 @@ body {
     margin: 0;
     padding: 5px;
 }
+
 #table.table {
     display: flex;
     align-items:center;
+	border-collapse: collapse;
+}
+td {
+  border: 1px solid black;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+table {
+  border-collapse: collapse;
 }
 
 .form-group:not(.layer-2) > label {
@@ -115,10 +126,9 @@ input[type="number"] {
     top: 20px;
     right: 20px;
     white-space: pre-wrap;
-    width: calc(50% - 20px);
+    width: calc(35% - 20px);
     padding: 5px 10px;
 	font-size: 23px;
-	align-items: center;
 }
 
 label + .form-group.layer-2 {
@@ -296,4 +306,7 @@ body.dark-theme textarea::placeholder, body.dark-theme input::placeholder {
 }
 body.dark-theme a {
     color: #48e;
+}
+body.dark-theme td {
+  border: 1px solid white;
 }
