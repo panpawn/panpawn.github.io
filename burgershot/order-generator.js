@@ -11,10 +11,6 @@ const menu = {
 		noDiscount: true,
 		items: ["Murder Meal"],
 	},
-	"Burger Combo": {
-		price: 70,
-		items: ["Burger", "Fries", "Soda"],
-	},
 	"Running Man": {
 		price: 60,
 		blackout: 51,
@@ -73,6 +69,26 @@ const menu = {
 		blackout: 94,
 		items: ["Milkshake", "Milkshake", "Milkshake", "Fries", "Fries", "Fries"],
 	},
+	"Heartstopper Combo": {
+		price: 70,
+		items: ["Heartstopper", "Fries", "Soda"],
+	},
+	"Money Shot Combo": {
+		price: 70,
+		items: ["Money Shot", "Fries", "Soda"],
+	},
+	"Torpedo Combo": {
+		price: 70,
+		items: ["Torpedo", "Fries", "Soda"],
+	},
+	"Bleeder Combo": {
+		price: 70,
+		items: ["Bleeder", "Fries", "Soda"],
+	},
+	"Meat Free Combo": {
+		price: 70,
+		items: ["Meat Free", "Fries", "Soda"],
+	},
 	"Heartstopper": {
 		price: 40,
 		items: ["Heartstopper"],
@@ -123,9 +139,10 @@ const menu = {
 	}
 };
 
+
 const indivItems = [
 	"Murder Meal", "Heartstopper", "Money Shot", "Torpedo", "Bleeder", "Water", "Meat Free",
-	"Fries", "Soda", "Rimjob", "Cream Pie", "Milkshake", "Toy", "Desert", "Burger"
+	"Fries", "Soda", "Rimjob", "Cream Pie", "Milkshake", "Toy"
 ];
 
 function getOccurrence(array, value) {
@@ -134,11 +151,18 @@ function getOccurrence(array, value) {
 
 function formatItems(items) {
 	let newArray = [];
+	let imageIcons = '';
 	indivItems.forEach(item => {
 		let occ = getOccurrence(items, item);
 		if (occ > 0) newArray.push(`- ${occ}x ${item}`);
 	});
-	return newArray;
+	if (items.length <= 40) {
+		items.forEach(item => {
+			let imageName = item.toLowerCase().replace(' ', '_');
+			imageIcons += `<img src="images/${imageName}.png" title="${item}" width="50" height="50"> `;
+		});
+	}
+	return [newArray, imageIcons];
 }
 
 function report() {
@@ -177,7 +201,10 @@ function report() {
 		}
 	});
 	buffer.push("<strong>ITEMS ORDERED:</strong>");
-	buffer.push(formatItems(allItems).join('\n'));
+	let formatted = formatItems(allItems.sort());
+	buffer.push(formatted[0].join('\n'));
+	buffer.push("");
+	buffer.push(formatted[1]);
 	buffer.push("");
 	buffer.push("<strong>SUB TOTAL:</strong> $" + total);
 	if (curDarkmode) {
