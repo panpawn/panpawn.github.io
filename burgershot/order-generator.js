@@ -212,7 +212,8 @@ function getEmptyOrder() {
 	buffer.push("<strong>ITEMS ORDERED:</strong>");
 	buffer.push("");
 	buffer.push("");
-	buffer.push(`<strong>SUB TOTAL:</strong> <span class="green">$0</span>`);
+	buffer.push("");
+	buffer.push(`<strong>SUBTOTAL:</strong> <span class="green">$0</span>`);
 	document.getElementById('reportBody').innerHTML = buffer.join("\n");
 }
 
@@ -230,7 +231,7 @@ function report() {
 		discountSelected = document.getElementById('halfoff').checked = false;
 		blackoutSale = document.getElementById('blackout').checked = false;
 	}
-		
+
 	Object.keys(menu).forEach(item => {
 		if (menu[item].header) return;
 		let discount = (menu[item].noDiscount ? false : true);
@@ -257,7 +258,7 @@ function report() {
 	buffer.push(formatted.join('\n'));
 	buffer.push("");
 	buffer.push("");
-	buffer.push(`<strong>SUB TOTAL:</strong> <span class="green">$${total}</span>`);
+	buffer.push(`<strong>SUBTOTAL:</strong> <span class="green">$${total}</span>`);
 	if (curDarkmode) {
 		if (darkmodeState === 'false') updateDarkmode();
 	} else if (!curDarkmode) {
@@ -314,8 +315,8 @@ function loadPage() {
 				icon = `<img src="images/${fileName}" width="20" height="20">`;
 			}
 			table += "<td><center><button class=\"btn\" title='Add 1x " + item + "' onClick='add(\"" + item + "\")'><strong>" + icon + item + "</strong></button><br />" +
-			`Qty: <strong><span id="${item}-#">0</span></strong> | $${menu[item].price} | ` +
-			"<i class=\"fa fa-minus-circle\" aria-hidden=\"true\" title='Remove 1x " + item + "' onClick='remove(\"" + item + "\")'></i></td>";
+				`Qty: <strong><span id="${item}-#">0</span></strong> | $${menu[item].price} | ` +
+				"<i class=\"fa fa-minus-circle\" aria-hidden=\"true\" title='Remove 1x " + item + "' onClick='remove(\"" + item + "\")'></i></td>";
 			count++;
 			if (count == tableWidth) {
 				table += `</tr><tr>`
@@ -323,7 +324,6 @@ function loadPage() {
 			}
 			if (menu[item].last) {
 				for (let i = count; i < tableWidth; i++) {
-					console.log('got here: ' + item);
 					table += `<td></td>`;
 				}
 			}
@@ -333,12 +333,12 @@ function loadPage() {
 	table += `</tr><tr><td colspan="${tableWidth}"><input type="checkbox" id="halfoff" name="halfoff" value="halfoff" />` +
 		`<label for="halfoff">50% Discount (PD, EMS, BS Employees...)</label><br />` +
 		`<input type="checkbox" id="blackout" name="blackout" value="blackout" />` +
-		`<label for="blackout">Blackout Sale (certain items 15% off)</label></td>`;
-	table += `</tr></table>`;
+		`<label for="blackout">Blackout Sale (certain items 15% off)</label></td>` +
+		`</tr></table>`;
 	document.getElementById('table').innerHTML = table;
 
 	getEmptyOrder();
-	
+
 	let inputs = document.querySelectorAll('input[type="text"], input[type="number"], textarea');
 	inputs.forEach(i => i.addEventListener('keyup', report, false));
 
