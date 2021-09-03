@@ -16,6 +16,11 @@ const menu = {
 		noDiscount: true,
 		items: ["Murder Meal"],
 	},
+	"Rimjob Combo": {
+		price: 30,
+		items: ["Rimjob", "Rimjob", "Rimjob", "Rimjob", "Rimjob", "Rimjob"],
+	},
+	// Variable combos:
 	"Running Man": {
 		price: 60,
 		blackout: 51,
@@ -84,11 +89,12 @@ const menu = {
 		price: 111,
 		blackout: 94,
 		emoji: '🧂',
+		last: true,
 		items: ["Milkshake", "Milkshake", "Milkshake", "Fries", "Fries", "Fries"],
 	},
-	"Rimjob Combo": {
-		price: 30,
-		items: ["Rimjob", "Rimjob", "Rimjob", "Rimjob", "Rimjob", "Rimjob"],
+	// Burger Meals:
+	"Burger Meals:": {
+		header: true,
 	},
 	"Heartstopper Meal": {
 		price: 70,
@@ -282,16 +288,32 @@ function updateDarkmode() {
 	document.body.classList.toggle('dark-theme');
 }
 
-function loadPage() {
-	let darkmodeSetting = localStorage.getItem("darkmode");
-	if (!darkmodeSetting || darkmodeSetting === 'undefined' || darkmodeSetting === 'false') {
-		localStorage.setItem("darkmode", false);
-		darkmodeState = 'false';
+function getIcon(item) {
+	if (!menu[item]) return;
+	let icon;
+	if (menu[item].emoji) {
+		icon = menu[item].emoji;
+	} else {
+		let fileName = `${comboName.toLowerCase().replace(' ', '_')}.png`;
+		icon = `<img src="images/${fileName}" width="20" height="20">`;
 	}
-	if (darkmodeSetting == 'true') {
-		document.getElementById('darkmode').checked = true;
-		document.body.classList.toggle('dark-theme');
-		darkmodeState = 'true';
+	return icon;
+}
+
+let pageReloaded = false;
+
+function loadPage() {
+	if (!pageReloaded) {
+		let darkmodeSetting = localStorage.getItem("darkmode");
+		if (!darkmodeSetting || darkmodeSetting === 'undefined' || darkmodeSetting === 'false') {
+			localStorage.setItem("darkmode", false);
+			darkmodeState = 'false';
+		}
+		if (darkmodeSetting == 'true') {
+			document.getElementById('darkmode').checked = true;
+			document.body.classList.toggle('dark-theme');
+			darkmodeState = 'true';
+		}
 	}
 	let table = '<table><tr>';
 	let count = 0;
@@ -314,8 +336,9 @@ function loadPage() {
 				let fileName = `${comboName.toLowerCase().replace(' ', '_')}.png`;
 				icon = `<img src="images/${fileName}" width="20" height="20">`;
 			}
+			let qty = (pageReloaded ? document.getElementById(`${item}-#`).innerText : 0);
 			table += "<td><center><button class=\"btn\" title='Add 1x " + item + "' onClick='add(\"" + item + "\")'><strong>" + icon + item + "</strong></button><br />" +
-				`Qty: <strong><span id="${item}-#">0</span></strong> | $${menu[item].price} | ` +
+				`Qty: <strong><span id="${item}-#">${qty}</span></strong> | $${menu[item].price} | ` +
 				"<i class=\"fa fa-minus-circle\" aria-hidden=\"true\" title='Remove 1x " + item + "' onClick='remove(\"" + item + "\")'></i></td>";
 			count++;
 			if (count == tableWidth) {
@@ -337,7 +360,7 @@ function loadPage() {
 		`</tr></table>`;
 	document.getElementById('table').innerHTML = table;
 
-	getEmptyOrder();
+	if (!pageReloaded) getEmptyOrder();
 
 	let inputs = document.querySelectorAll('input[type="text"], input[type="number"], textarea');
 	inputs.forEach(i => i.addEventListener('keyup', report, false));
