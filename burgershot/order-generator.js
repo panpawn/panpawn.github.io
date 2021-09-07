@@ -89,8 +89,13 @@ const menu = {
 		price: 111,
 		blackout: 94,
 		emoji: '🧂',
-		last: true,
 		items: ["Milkshake", "Milkshake", "Milkshake", "Fries", "Fries", "Fries"],
+	},
+	"High Roller": {
+		price: 75,
+		last: true,
+		emoji: '🤑',
+		items: ["Money Shot", "Money Shot", "Soda"],
 	},
 	// Burger Meals:
 	"Burger Meals:": {
