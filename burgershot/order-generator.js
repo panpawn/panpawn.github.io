@@ -355,7 +355,7 @@ function toggleCombos() {
 				count = 0;
 			}
 			buffer += `<td><input type="checkbox" id="${item}-SELECTED" name="${item}-SELECTED" value="${item}-SELECTED" ${checked}/>` +
-				`<label for="${item}-SELECTED">${item}</label></td>${tr}`;
+				`<label for="${item}-SELECTED">${menu[item].emoji} ${item}</label></td>${tr}`;
 		});
 		for (let i = count; i < comboTableWidth; i++) {
 			buffer += `<td></td>`;
