@@ -307,6 +307,14 @@ function getIcon(item) {
 
 let pageReloaded = false;
 
+function newOrder() {
+	Object.keys(menu).forEach(item => {
+		if (menu[item].header) return;
+		document.getElementById(`${item}-#`).innerText = 0;
+	});
+	report();
+}
+
 function loadPage() {
 	if (!pageReloaded) {
 		let darkmodeSetting = localStorage.getItem("darkmode");
