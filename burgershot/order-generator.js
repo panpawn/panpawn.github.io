@@ -93,7 +93,6 @@ const menu = {
 	},
 	"High Roller": {
 		price: 75,
-		last: true,
 		emoji: '🤑',
 		items: ["Money Shot", "Money Shot", "Soda"],
 	},
@@ -119,7 +118,6 @@ const menu = {
 	},
 	"Meat Free Meal": {
 		price: 70,
-		last: true,
 		items: ["Meat Free", "Fries", "Soda"],
 	},
 	// Individual Items:
@@ -168,16 +166,30 @@ const menu = {
 	},
 	"Cream Pie": {
 		price: 10,
-		last: true,
+		lastItem: true,
 		items: ["Cream Pie"],
 	}
 };
-
 
 const indivItems = [
 	"Murder Meal", "Heartstopper", "Money Shot", "Torpedo", "Bleeder", "Water", "Meat Free",
 	"Fries", "Soda", "Rimjob", "Cream Pie", "Milkshake", "Toy"
 ];
+
+const buttons = {
+	"buffer": {
+		html: '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'
+	},
+	"new_order": {
+		html: '<div class="btn" onclick="newOrder();" title="Clear current order"><i class="fa fa-recycle" aria-hidden="true"></i> New Order</div>',
+	},
+	"set_combos": {
+		html: '<div class="btn" onclick="toggleCombos()" title="Select current active combos"><i class="fa fa-cog" aria-hidden="true"></i> Set Active Combos</div>',
+	},
+	"save": {
+		html: '<div class="btn" onclick="updateSelected()" title="Save selected combos"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save Combos</div>',
+	}
+};
 
 function getOccurrence(array, value) {
 	return array.filter((v) => (v === value)).length;
@@ -233,8 +245,14 @@ function report() {
 	buffer.push('<img src="images/bs-logo.svg" width="50%">');
 	buffer.push("");
 	let curDarkmode = document.getElementById('darkmode').checked;
+	if (curDarkmode) {
+		if (darkmodeState === 'false') updateDarkmode();
+	} else if (!curDarkmode) {
+		if (darkmodeState === 'true') updateDarkmode();
+	}
 	let total = 0;
 	let allItems = [];
+	if (selectingCombos) return;
 	let discountSelected = document.getElementById('halfoff').checked;
 	let blackoutSale = document.getElementById('blackout').checked;
 	if (discountSelected && blackoutSale) {
@@ -245,6 +263,10 @@ function report() {
 
 	Object.keys(menu).forEach(item => {
 		if (menu[item].header) return;
+		let selected = true;
+		if (menu[item].emoji) selected = isSelected(item);
+
+		if (!selected) return;
 		let discount = (menu[item].noDiscount ? false : true);
 		let price;
 		if (blackoutSale && menu[item].blackout) {
@@ -253,7 +275,9 @@ function report() {
 			price = menu[item].price;
 		}
 		if (discountSelected && discount) price = Math.round(price / 2);
-		let quantity = document.getElementById(`${item}-#`).innerText;
+		let quantity = 0;
+		quantity = document.getElementById(`${item}-#`).innerText;
+
 		let items = menu[item].items;
 		total += price * quantity;
 		if (quantity) {
@@ -270,11 +294,6 @@ function report() {
 	buffer.push("");
 	buffer.push("");
 	buffer.push(`<strong>SUBTOTAL:</strong> <span class="green">$${total}</span>`);
-	if (curDarkmode) {
-		if (darkmodeState === 'false') updateDarkmode();
-	} else if (!curDarkmode) {
-		if (darkmodeState === 'true') updateDarkmode();
-	}
 
 	return document.getElementById('reportBody').innerHTML = buffer.join("\n");
 }
@@ -293,25 +312,87 @@ function updateDarkmode() {
 	document.body.classList.toggle('dark-theme');
 }
 
+
+function isSelected(comboName) {
+	let returnVal;
+	let value = localStorage.getItem(`${comboName}-SELECTED`);
+	if (!value || value === 'undefined' || value === 'false') {
+		returnVal = false;
+	} else {
+		returnVal = true;
+	}
+	return returnVal;
+}
+let selectingCombos = false;
+let pageReloaded = false;
+function updateSelected() {
+	if (!selectingCombos) return;
+	Object.keys(menu).forEach(item => {
+		if (!menu[item].header && menu[item].emoji) {
+			let checked = document.getElementById(`${item}-SELECTED`).checked;
+			localStorage.setItem(`${item}-SELECTED`, checked);
+		}
+	});
+	toggleCombos();
+	pageReloaded = true;
+	loadPage();
+	newOrder();
+}
+
+function toggleCombos() {
+	let comboTableWidth = 2;
+	selectingCombos = !selectingCombos;
+	if (selectingCombos) {
+		let buffer = '<table border="0"><tr>';
+		let count = 0;
+		Object.keys(menu).forEach(item => {
+			if (menu[item].header || !menu[item].emoji) return;
+			let checked = (isSelected(item) ? "checked" : "");
+			let tr = '';
+			count++;
+			if (count == comboTableWidth) {
+				tr = `</tr><tr>`;
+				count = 0;
+			}
+			buffer += `<td><input type="checkbox" id="${item}-SELECTED" name="${item}-SELECTED" value="${item}-SELECTED" ${checked}/>` +
+				`<label for="${item}-SELECTED">${item}</label></td>${tr}`;
+		});
+		for (let i = count; i < comboTableWidth; i++) {
+			buffer += `<td></td>`;
+		}
+		buffer += `<tr><td colspan="${tableWidth}"><center>${buttons['save'].html}</center></td></tr>`;
+		buffer += `</table>`;
+		
+		document.getElementById('table').innerHTML = buffer;
+		document.getElementById('action-buttons').innerHTML = '';
+	} else {
+		document.getElementById('table').innerText = '';
+	}
+}
+
 function getIcon(item) {
+	if (item !== 'Murder Meal') {
+		item = item.replace('Meal', '').replace('Combo', '').trim();
+	}
 	if (!menu[item]) return;
 	let icon;
 	if (menu[item].emoji) {
 		icon = menu[item].emoji;
 	} else {
-		let fileName = `${comboName.toLowerCase().replace(' ', '_')}.png`;
+		let fileName = `${item.toLowerCase().replace(' ', '_')}.png`;
 		icon = `<img src="images/${fileName}" width="20" height="20">`;
 	}
 	return icon;
 }
 
-let pageReloaded = false;
-
 function newOrder() {
 	Object.keys(menu).forEach(item => {
 		if (menu[item].header) return;
+		let selected = isSelected(item);
+		if (menu[item].emoji && !selected) return;
 		document.getElementById(`${item}-#`).innerText = 0;
 	});
+	pageReloaded = true;
 	report();
 }
 
@@ -332,11 +413,14 @@ function loadPage() {
 	let count = 0;
 	Object.keys(menu).forEach(item => {
 		if (menu[item].header) {
+			for (let i = count; i < tableWidth; i++) {
+				table += `<td></td>`;
+			}
 			table += `</tr><tr><td colspan="${tableWidth}"><center><strong><u>${item}</u></strong></center></td></tr><tr>`;
 			count = 0;
 		} else {
 			let max = menu[item].max || 100;
-			let icon;
+			let icon = getIcon(item);
 			let comboName = item;
 			if (comboName.includes("Combo") || comboName.includes("Meal")) {
 				if (comboName !== 'Murder Meal') {
@@ -344,12 +428,16 @@ function loadPage() {
 				}
 			}
 			if (menu[item].emoji) {
-				icon = menu[item].emoji;
+				if (!isSelected(item)) return;
 			} else {
 				let fileName = `${comboName.toLowerCase().replace(' ', '_')}.png`;
-				icon = `<img src="images/${fileName}" width="20" height="20">`;
 			}
-			let qty = (pageReloaded ? document.getElementById(`${item}-#`).innerText : 0);
+			let qty = 0;
+			if (pageReloaded && (menu[item].emoji && isSelected(item))) {
+				let element = document.getElementById(`${item}-#`);
+				if (element) qty = document.getElementById(`${item}-#`).innerText;
+			}
+
 			table += "<td><center><button class=\"btn\" title='Add 1x " + item + "' onClick='add(\"" + item + "\")'><strong>" + icon + item + "</strong></button><br />" +
 				`Qty: <strong><span id="${item}-#">${qty}</span></strong> | $${menu[item].price} | ` +
 				"<i class=\"fa fa-minus-circle\" aria-hidden=\"true\" title='Remove 1x " + item + "' onClick='remove(\"" + item + "\")'></i></td>";
@@ -358,7 +446,7 @@ function loadPage() {
 				table += `</tr><tr>`
 				count = 0;
 			}
-			if (menu[item].last) {
+			if (menu[item].lastItem) {
 				for (let i = count; i < tableWidth; i++) {
 					table += `<td></td>`;
 				}
@@ -371,7 +459,12 @@ function loadPage() {
 		`<input type="checkbox" id="blackout" name="blackout" value="blackout" />` +
 		`<label for="blackout">Blackout Sale (certain items 15% off)</label></td>` +
 		`</tr></table>`;
+
 	document.getElementById('table').innerHTML = table;
+
+	let activeButtons = `${buttons['buffer'].html}${buttons['new_order'].html}`;
+	if (!selectingCombos) activeButtons += ` | ${buttons['set_combos'].html}`;
+	document.getElementById('action-buttons').innerHTML = activeButtons;	
 
 	if (!pageReloaded) getEmptyOrder();
 
