@@ -181,7 +181,7 @@ const buttons = {
 		html: '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'
 	},
 	"new_order": {
-		html: '<div class="btn" onclick="newOrder();" title="Clear current order"><i class="fa fa-recycle" aria-hidden="true"></i> New Order</div>',
+		html: '<div class="btn" onclick="newOrder();" title="Clear current order"><i class="fa fa-refresh" aria-hidden="true"></i> New Order</div>',
 	},
 	"set_combos": {
 		html: '<div class="btn" onclick="toggleCombos()" title="Select current active combos"><i class="fa fa-cog" aria-hidden="true"></i> Set Active Combos</div>',
