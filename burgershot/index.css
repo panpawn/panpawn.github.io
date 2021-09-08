@@ -15,7 +15,7 @@ pre, code {
     font-family: ui-monospace, "Cascadia Mono", "Segoe UI Mono", "Ubuntu Mono", "Roboto Mono", Menlo, Monaco, Consolas, monospace;
     font-size: 13px;
     line-height: 17px;
-    background: rgb(246, 246, 246);
+	background-color: #FFF3F2;
 }
 
 body {
