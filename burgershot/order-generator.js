@@ -3,18 +3,12 @@
 let buffer = [];
 let officersInvolved = new Set();
 let darkmodeState;
-const tableWidth = 4;
+const tableWidth = 3;
 
 const menu = {
 	// Combo Items:
 	"Combination Items:": {
 		header: true,
-	},
-	"Murder Meal": {
-		max: 5,
-		price: 101,
-		noDiscount: true,
-		items: ["Murder Meal"],
 	},
 	"Rimjob Combo": {
 		price: 30,
@@ -99,6 +93,12 @@ const menu = {
 	// Burger Meals:
 	"Burger Meals:": {
 		header: true,
+	},
+	"Murder Meal": {
+		max: 5,
+		price: 101,
+		noDiscount: true,
+		items: ["Murder Meal"],
 	},
 	"Heartstopper Meal": {
 		price: 70,
@@ -187,7 +187,7 @@ const buttons = {
 		html: '<div class="btn" onclick="toggleCombos()" title="Select current active combos"><i class="fa fa-cog" aria-hidden="true"></i> Set Active Combos</div>',
 	},
 	"save": {
-		html: '<div class="btn" onclick="updateSelected()" title="Save selected combos"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save Combos</div>',
+		html: '<div class="btn" onclick="updateSelected()" title="Save selected combos"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save Combination Items</div>',
 	}
 };
 
@@ -343,7 +343,7 @@ function toggleCombos() {
 	let comboTableWidth = 2;
 	selectingCombos = !selectingCombos;
 	if (selectingCombos) {
-		let buffer = '<table border="0"><tr>';
+		let buffer = `<table border="0"><tr><td colspan="${comboTableWidth}"><center><i>Select active combination items:</i></center></td></tr><tr>`;
 		let count = 0;
 		Object.keys(menu).forEach(item => {
 			if (menu[item].header || !menu[item].emoji) return;
