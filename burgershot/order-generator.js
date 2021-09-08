@@ -1,7 +1,5 @@
 'use strict';
 
-let buffer = [];
-let officersInvolved = new Set();
 let darkmodeState;
 const tableWidth = 3;
 
@@ -96,6 +94,7 @@ const menu = {
 	},
 	"Murder Meal": {
 		max: 5,
+		fileRenameException: true,
 		price: 101,
 		noDiscount: true,
 		items: ["Murder Meal"],
@@ -229,8 +228,8 @@ function remove(item) {
 }
 
 function getEmptyOrder() {
-	buffer = [];
-	buffer.push('<img src="images/bs-logo.svg" width="50%">');
+	let buffer = [];
+	buffer.push('<img src="images/bs-logo.svg" width="45%">');
 	buffer.push("");
 	buffer.push("<strong>ITEMS ORDERED:</strong>");
 	buffer.push("");
@@ -241,8 +240,8 @@ function getEmptyOrder() {
 }
 
 function report() {
-	buffer = [];
-	buffer.push('<img src="images/bs-logo.svg" width="50%">');
+	let buffer = [];
+	buffer.push('<img src="images/bs-logo.svg" width="45%">');
 	buffer.push("");
 	let curDarkmode = document.getElementById('darkmode').checked;
 	if (curDarkmode) {
@@ -312,7 +311,6 @@ function updateDarkmode() {
 	document.body.classList.toggle('dark-theme');
 }
 
-
 function isSelected(comboName) {
 	let returnVal;
 	let value = localStorage.getItem(`${comboName}-SELECTED`);
@@ -323,8 +321,10 @@ function isSelected(comboName) {
 	}
 	return returnVal;
 }
+
 let selectingCombos = false;
 let pageReloaded = false;
+
 function updateSelected() {
 	if (!selectingCombos) return;
 	Object.keys(menu).forEach(item => {
@@ -371,7 +371,7 @@ function toggleCombos() {
 }
 
 function getIcon(item) {
-	if (item !== 'Murder Meal') {
+	if (!menu[item].fileRenameException) {
 		item = item.replace('Meal', '').replace('Combo', '').trim();
 	}
 	if (!menu[item]) return;
