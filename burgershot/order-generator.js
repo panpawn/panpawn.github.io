@@ -209,10 +209,12 @@ function formatItems(items) {
 }
 
 function add(item) {
-	let number = Number(document.getElementById(`${item}-#`).innerText);
+	let elem = document.getElementById(`${item}-#`);
+	if (!elem) return alert(`ERROR: ${item} is not available to add to the cart!`);
+	let number = Number(elem.innerText);
 	let max = menu[item].max || 100;
 	if (number + 1 <= max) {
-		document.getElementById(`${item}-#`).innerText = number + 1;
+		elem.innerText = number + 1;
 		report();
 	} else {
 		alert(`You cannot add more than ${max}x ${item} in 1 order!`);
@@ -220,9 +222,11 @@ function add(item) {
 }
 
 function remove(item) {
-	let number = Number(document.getElementById(`${item}-#`).innerText);
+	let elem = document.getElementById(`${item}-#`);
+	if (!elem) return alert(`ERROR: ${item} is not available to remove to the cart!`);
+	let number = Number(elem.innerText);
 	if (number - 1 >= 0) {
-		document.getElementById(`${item}-#`).innerText = Number(number) - 1;
+		elem.innerText = Number(number) - 1;
 		report();
 	}
 }
