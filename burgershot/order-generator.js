@@ -397,6 +397,10 @@ function newOrder() {
 		document.getElementById(`${item}-#`).innerText = 0;
 	});
 	pageReloaded = true;
+	let halfOff = document.getElementById('halfoff');
+	let blackoutSale = document.getElementById('blackout');
+	if (halfOff) halfOff.checked = false;
+	if (blackoutSale) blackoutSale.checked = false;
 	report();
 }
 
