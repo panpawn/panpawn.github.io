@@ -15,49 +15,41 @@ const menu = {
 	// Variable combos:
 	"Running Man": {
 		price: 60,
-		blackout: 51,
 		emoji: '🏃',
 		items: ["Fries", "Fries", "Rimjob", "Rimjob", "Soda"],
 	},
 	"Sugar Rush": {
 		price: 35,
-		blackout: 30,
 		emoji: '🍬',
 		items: ["Soda", "Cream Pie", "Rimjob"],
 	},
 	"Sweet Tooth": {
 		price: 60,
-		blackout: 51,
 		emoji: '🦷',
 		items: ["Milkshake", "Milkshake", "Cream Pie", "Cream Pie"],
 	},
 	"10-80": {
 		price: 89,
-		blackout: 77,
 		emoji: '🔁',
 		items: ["Heartstopper", "Milkshake", "Rimjob", "Rimjob", "Rimjob"],
 	},
 	"Flatliner": {
 		price: 119,
-		blackout: 101,
 		emoji: '💓',
 		items: ["Soda", "Heartstopper", "Heartstopper", "Rimjob", "Rimjob", "Rimjob"],
 	},
 	"Backdoor Blast": {
 		price: 69,
-		blackout: 58,
 		emoji: '🚪',
 		items: ["Torpedo", "Rimjob", "Milkshake"],
 	},
 	"Bloody Mary": {
 		price: 80,
-		blackout: 68,
 		emoji: '🩸',
 		items: ["Bleeder", "Fries", "Milkshake", "Cream Pie"],
 	},
 	"Dirty Laundry": {
 		price: 99,
-		blackout: 84,
 		emoji: '🧺',
 		items: ["Money Shot", "Money Shot", "Rimjob", "Cream Pie", "Soda"],
 	},
@@ -68,7 +60,6 @@ const menu = {
 	},
 	"Fiji": {
 		price: 45,
-		blackout: 38,
 		emoji: '🌺',
 		items: ["Torpedo", "Water", "Water"],
 	},
@@ -79,7 +70,6 @@ const menu = {
 	},
 	"Salty Seaman": {
 		price: 111,
-		blackout: 94,
 		emoji: '🧂',
 		items: ["Milkshake", "Milkshake", "Milkshake", "Fries", "Fries", "Fries"],
 	},
@@ -271,11 +261,9 @@ function report() {
 
 		if (!selected) return;
 		let discount = (menu[item].noDiscount ? false : true);
-		let price;
-		if (blackoutSale && menu[item].blackout) {
-			price = menu[item].blackout;
-		} else {
-			price = menu[item].price;
+		let price = menu[item].price;
+		if (blackoutSale && !menu[item].noDiscount) {
+			price = price - Math.round(price * .15);
 		}
 		if (discountSelected && discount) price = Math.round(price / 2);
 		let quantity = 0;
@@ -465,7 +453,7 @@ function loadPage() {
 	table += `</tr><tr><td colspan="${tableWidth}"><input type="checkbox" id="halfoff" name="halfoff" value="halfoff" />` +
 		`<label for="halfoff">50% Discount (PD, EMS, BS Employees...)</label><br />` +
 		`<input type="checkbox" id="blackout" name="blackout" value="blackout" />` +
-		`<label for="blackout">Blackout Sale (certain items 15% off)</label></td>` +
+		`<label for="blackout">Blackout Sale (15% off)</label></td>` +
 		`</tr></table>`;
 
 	document.getElementById('table').innerHTML = table;
