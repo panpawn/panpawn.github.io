@@ -160,6 +160,7 @@ const menu = {
 	"Toy": {
 		price: 101,
 		max: 10,
+		noDiscount: true,
 		lastItem: true,
 		items: ["Toy"],
 	}
