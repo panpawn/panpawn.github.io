@@ -155,8 +155,13 @@ const menu = {
 	},
 	"Cream Pie": {
 		price: 10,
-		lastItem: true,
 		items: ["Cream Pie"],
+	},
+	"Toy": {
+		price: 101,
+		max: 10,
+		lastItem: true,
+		items: ["Toy"],
 	}
 };
 
