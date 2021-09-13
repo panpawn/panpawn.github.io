@@ -182,6 +182,9 @@ const buttons = {
 	},
 	"save": {
 		html: '<div class="btn" onclick="updateSelected()" title="Save selected combos"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save Combination Items</div>',
+	},
+	"deselect_combos": {
+		html: '<div class="btn" onclick="deselectCombos()" title="Deselect all combos"><i class="fa fa-times-circle-o" aria-hidden="true"></i> Deselect All</div>',
 	}
 };
 
@@ -357,7 +360,7 @@ function toggleCombos() {
 		for (let i = count; i < comboTableWidth; i++) {
 			buffer += `<td></td>`;
 		}
-		buffer += `<tr><td colspan="${tableWidth}"><center>${buttons['save'].html}</center></td></tr>`;
+		buffer += `<tr><td colspan="${tableWidth}"><center>${buttons['save'].html}<br />${buttons['deselect_combos'].html}</center></td></tr>`;
 		buffer += `</table>`;
 		
 		document.getElementById('table').innerHTML = buffer;
@@ -395,6 +398,14 @@ function newOrder() {
 	if (halfOff) halfOff.checked = false;
 	if (blackoutSale) blackoutSale.checked = false;
 	report();
+}
+
+function deselectCombos() {
+	Object.keys(menu).forEach(item => {
+		if (!menu[item].emoji) return;
+		let checkBox = document.getElementById(`${item}-SELECTED`);
+		if (checkBox) checkBox.checked = false;
+	});
 }
 
 function loadPage() {
