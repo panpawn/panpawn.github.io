@@ -43,10 +43,10 @@ const menu = {
 	"Royal Flush": {
 		price: 60,
 		emoji: '🚽',
-		items: ["Fries", "Cream Pie", "Rimjob", "Milkshake"],
+		items: ["Fries", "Cream Pie", "Rimjob", "Water", "Milkshake"],
 	},
 	"High Roller": {
-		price: 75,
+		price: 85,
 		emoji: '🤑',
 		items: ["Money Shot", "Money Shot", "Soda"],
 	},
