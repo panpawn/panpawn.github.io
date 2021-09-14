@@ -89,6 +89,11 @@ const menu = {
 		emoji: '🌺',
 		items: ["Torpedo", "Water", "Water"],
 	},
+	"Jugular Jungle": {
+		price: 95,
+		emoji: '🌴',
+		items: ["Fries", "Fries", "Fries", "Milkshake", "Milkshake"],
+	},
 	// Saturday
 	"A Salt & Battery": {
 		price: 55,
