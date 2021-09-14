@@ -28,55 +28,77 @@ const menu = {
 		emoji: '🦷',
 		items: ["Milkshake", "Milkshake", "Cream Pie", "Cream Pie"],
 	},
-	"10-80": {
-		price: 89,
-		emoji: '🔁',
-		items: ["Heartstopper", "Milkshake", "Rimjob", "Rimjob", "Rimjob"],
-	},
-	"Flatliner": {
-		price: 119,
-		emoji: '💓',
-		items: ["Soda", "Heartstopper", "Heartstopper", "Rimjob", "Rimjob", "Rimjob"],
-	},
-	"Backdoor Blast": {
-		price: 69,
-		emoji: '🚪',
-		items: ["Torpedo", "Rimjob", "Milkshake"],
-	},
-	"Bloody Mary": {
-		price: 80,
-		emoji: '🩸',
-		items: ["Bleeder", "Fries", "Milkshake", "Cream Pie"],
-	},
-	"Dirty Laundry": {
-		price: 99,
-		emoji: '🧺',
-		items: ["Money Shot", "Money Shot", "Rimjob", "Cream Pie", "Soda"],
-	},
-	"Full Moon": {
-		price: 140,
-		emoji: '🌕',
-		items: ["Fries", "Fries", "Fries", "Fries", "Soda", "Soda", "Heartstopper", "Rimjob"],
-	},
-	"Fiji": {
-		price: 45,
-		emoji: '🌺',
-		items: ["Torpedo", "Water", "Water"],
-	},
-	"Super Soaker": {
+	// Sunday
+	"Buck Fever": {
 		price: 70,
-		emoji: '🔫',
-		items: ["Water", "Soda", "Rimjob", "Bleeder"],
+		emoji: '🦌',
+		items: ["Bleeder", "Milkshake", "Rimjob"],
 	},
-	"Salty Seaman": {
-		price: 111,
-		emoji: '🧂',
-		items: ["Milkshake", "Milkshake", "Milkshake", "Fries", "Fries", "Fries"],
+	"The Big Catch": {
+		price: 40,
+		emoji: '🎣',
+		items: ["Cream Pie", "Cream Pie", "Fries", "Fries"],
+	},
+	// Monday
+	"Royal Flush": {
+		price: 60,
+		emoji: '🚽',
+		items: ["Fries", "Cream Pie", "Rimjob", "Milkshake"],
 	},
 	"High Roller": {
 		price: 75,
 		emoji: '🤑',
 		items: ["Money Shot", "Money Shot", "Soda"],
+	},
+	// Tuesday
+	"Cream Getaway": {
+		price: 70,
+		emoji: '🏁',
+		items: ["Fries", "Fries", "Cream Pie", "Milkshake"],
+	},
+	"Burger Booster": {
+		price: 100,
+		emoji: '⛽',
+		items: ["Torpedo", "Torpedo", "Rimjob", "Soda"],
+	},
+	// Wednesday
+	"Salad Dodger": {
+		price: 45,
+		emoji: '🥗',
+		items: ["Soda", "Soda", "Rimjob", "Rimjob"],
+	},
+	"Vegan Slaughter": {
+		price: 80,
+		emoji: '🥬',
+		items: ["Meat Free", "Fries", "Milkshake", "Cream Pie"],
+	},
+	// Thursday
+	"Ice Screamer": {
+		price: 45,
+		emoji: '🍦',
+		items: ["Cream Pie", "Fries", "Milkshake"],
+	},
+	"Brain Bleeder": {
+		price: 90,
+		emoji: '🥶',
+		items: ["Bleeder", "Bleeder", "Rimjob", "Rimjob"],
+	},
+	// Friday
+	"A Taste of Greece": {
+		price: 45,
+		emoji: '🌺',
+		items: ["Torpedo", "Water", "Water"],
+	},
+	// Saturday
+	"A Salt & Battery": {
+		price: 55,
+		emoji: '🧂',
+		items: ["Fries", "Fries", "Fries", "Soda"],
+	},
+	"Lime Served": {
+		price: 80,
+		emoji: '🕑',
+		items: ["Money Shot", "Cream Pie", "Cream Pie", "Milkshake"],
 	},
 	// Burger Meals:
 	"Burger Meals:": {
