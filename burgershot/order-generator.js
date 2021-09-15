@@ -216,6 +216,17 @@ const buttons = {
 	}
 };
 
+const discounts = {
+	"half_off": {
+		percent: .50,
+		desc: '50% Discount (PD, EMS, BS Employees...)',
+	},
+	"blackout": {
+		percent: .15,
+		desc: 'Blackout Sale (15% off)',
+	},
+};
+
 function getOccurrence(array, value) {
 	return array.filter((v) => (v === value)).length;
 }
@@ -269,6 +280,21 @@ function getEmptyOrder() {
 	document.getElementById('reportBody').innerHTML = buffer.join("\n");
 }
 
+function getDiscount() {
+	let discountCount = 0;
+	let activeDiscount = 0;
+	Object.keys(discounts).forEach(discount => {
+		let checkBox = document.getElementById(`${discount}-DISCOUNT`);
+		if (checkBox && checkBox.checked) {
+			discountCount++;
+			activeDiscount = discounts[discount].percent;
+		}
+	});
+	if (discountCount > 1) return false;
+	if (discountCount == 1) return activeDiscount;
+	return "NONE";
+}
+
 function report() {
 	let buffer = [];
 	buffer.push('<img src="images/bs-logo.svg" width="45%">');
@@ -282,12 +308,10 @@ function report() {
 	let total = 0;
 	let allItems = [];
 	if (selectingCombos) return;
-	let discountSelected = document.getElementById('halfoff').checked;
-	let blackoutSale = document.getElementById('blackout').checked;
-	if (discountSelected && blackoutSale) {
+	let discountSelected = getDiscount();
+	if (!discountSelected) {
 		alert("You cannot have more than one sale/discount at once!");
-		discountSelected = document.getElementById('halfoff').checked = false;
-		blackoutSale = document.getElementById('blackout').checked = false;
+		clearDiscounts();
 	}
 
 	Object.keys(menu).forEach(item => {
@@ -298,10 +322,10 @@ function report() {
 		if (!selected) return;
 		let discount = (menu[item].noDiscount ? false : true);
 		let price = menu[item].price;
-		if (blackoutSale && !menu[item].noDiscount) {
-			price = price - Math.round(price * .15);
+		if (discountSelected && discountSelected !== 'NONE' && !menu[item].noDiscount) {
+			console.log(discountSelected);
+			price = price - Math.round(price * discountSelected);
 		}
-		if (discountSelected && discount) price = Math.round(price / 2);
 		let quantity = 0;
 		quantity = document.getElementById(`${item}-#`).innerText;
 
@@ -413,6 +437,13 @@ function getIcon(item) {
 	return icon;
 }
 
+function clearDiscounts() {
+	Object.keys(discounts).forEach(discount => {
+		let checkBox = document.getElementById(`${discount}-DISCOUNT`);
+		if (checkBox) checkBox.checked = false;
+	});
+}
+
 function newOrder() {
 	Object.keys(menu).forEach(item => {
 		if (menu[item].header) return;
@@ -421,10 +452,7 @@ function newOrder() {
 		document.getElementById(`${item}-#`).innerText = 0;
 	});
 	pageReloaded = true;
-	let halfOff = document.getElementById('halfoff');
-	let blackoutSale = document.getElementById('blackout');
-	if (halfOff) halfOff.checked = false;
-	if (blackoutSale) blackoutSale.checked = false;
+	clearDiscounts();
 	report();
 }
 
@@ -494,11 +522,12 @@ function loadPage() {
 		}
 	});
 
-	table += `</tr><tr><td colspan="${tableWidth}"><input type="checkbox" id="halfoff" name="halfoff" value="halfoff" />` +
-		`<label for="halfoff">50% Discount (PD, EMS, BS Employees...)</label><br />` +
-		`<input type="checkbox" id="blackout" name="blackout" value="blackout" />` +
-		`<label for="blackout">Blackout Sale (15% off)</label></td>` +
-		`</tr></table>`;
+	table += `</tr><tr><td colspan="${tableWidth}">`
+	Object.keys(discounts).forEach(discount => {
+		table += `<input type="checkbox" id="${discount}-DISCOUNT" name="${discount}-DISCOUNT" value="${discount}-DISCOUNT" />` +
+		`<label for="${discount}-DISCOUNT">${discounts[discount].desc}</label><br />`;
+	});
+	table += `</td></tr></table>`;
 
 	document.getElementById('table').innerHTML = table;
 
