@@ -1,10 +1,14 @@
 'use strict';
 
 let darkmodeState;
-const tableWidth = 3;
-const default_max_cap = 100;
 
-const menu = {
+const Settings = {
+	'MAIN_TABLE_WIDTH': 3,
+	'COMBO_TABLE_WIDTH': 2,
+	'DEFAULT_MAX_CAP': 100,
+}
+
+const Menu = {
 	// Combo Items:
 	"Combination Items:": {
 		header: true,
@@ -194,7 +198,7 @@ const menu = {
 	}
 };
 
-const indivItems = [
+const INDIVIDUAL_ITEMS = [
 	"Murder Meal", "Heartstopper", "Money Shot", "Torpedo", "Bleeder", "Water", "Meat Free",
 	"Fries", "Soda", "Rimjob", "Cream Pie", "Milkshake", "Toy"
 ];
@@ -236,7 +240,7 @@ function formatItems(items) {
 	let newArray = [];
 	let imageIcons = '';
 
-	indivItems.forEach(item => {
+	INDIVIDUAL_ITEMS.forEach(item => {
 		let occ = getOccurrence(items, item);
 		let imageName = item.toLowerCase().replace(' ', '_');
 		let imageIcon = `<img src="images/${imageName}.png" title="${occ}x ${item}" width="30" height="30"> `
@@ -250,7 +254,7 @@ function add(item) {
 	let elem = document.getElementById(`${item}-#`);
 	if (!elem) return alert(`ERROR: ${item} is not available to add to the cart!`);
 	let number = Number(elem.innerText);
-	let max = menu[item].max || default_max_cap;
+	let max = Menu[item].max || default_max_cap;
 	if (number + 1 <= max) {
 		elem.innerText = number + 1;
 		report();
@@ -276,7 +280,7 @@ function set(item, quantity) {
 		return alert(`ERROR: ${quantity} is not a number!`);
 	}
 	quantity = Math.round(Number(quantity));
-	let max = menu[item].max || default_max_cap;
+	let max = Menu[item].max || default_max_cap;
 	if (max && quantity > max) {
 		alert(`You cannot add more than ${max}x ${item} in 1 order!`);
 		return;
@@ -339,22 +343,22 @@ function report() {
 		clearDiscounts();
 	}
 
-	Object.keys(menu).forEach(item => {
-		if (menu[item].header) return;
+	Object.keys(Menu).forEach(item => {
+		if (Menu[item].header) return;
 		let selected = true;
-		if (menu[item].emoji) selected = isSelected(item);
+		if (Menu[item].emoji) selected = isSelected(item);
 
 		if (!selected) return;
-		let discount = (menu[item].noDiscount ? false : true);
-		let price = menu[item].price;
-		if (discountSelected && discountSelected !== 'NONE' && !menu[item].noDiscount) {
+		let discount = (Menu[item].noDiscount ? false : true);
+		let price = Menu[item].price;
+		if (discountSelected && discountSelected !== 'NONE' && !Menu[item].noDiscount) {
 			console.log(discountSelected);
 			price = price - Math.round(price * discountSelected);
 		}
 		let quantity = 0;
 		quantity = document.getElementById(`${item}-#`).innerText;
 
-		let items = menu[item].items;
+		let items = Menu[item].items;
 		total += price * quantity;
 		if (quantity) {
 			let count = 0;
@@ -404,8 +408,8 @@ let pageReloaded = false;
 
 function updateSelected() {
 	if (!selectingCombos) return;
-	Object.keys(menu).forEach(item => {
-		if (!menu[item].header && menu[item].emoji) {
+	Object.keys(Menu).forEach(item => {
+		if (!Menu[item].header && Menu[item].emoji) {
 			let checked = document.getElementById(`${item}-SELECTED`).checked;
 			localStorage.setItem(`${item}-SELECTED`, checked);
 		}
@@ -417,27 +421,26 @@ function updateSelected() {
 }
 
 function toggleCombos() {
-	let comboTableWidth = 2;
 	selectingCombos = !selectingCombos;
 	if (selectingCombos) {
-		let buffer = `<table border="0"><tr><td colspan="${comboTableWidth}"><center><i>Select active combination items:</i></center></td></tr><tr>`;
+		let buffer = `<table border="0"><tr><td colspan="${Settings.COMBO_TABLE_WIDTH}"><center><i>Select active combination items:</i></center></td></tr><tr>`;
 		let count = 0;
-		Object.keys(menu).forEach(item => {
-			if (menu[item].header || !menu[item].emoji) return;
+		Object.keys(Menu).forEach(item => {
+			if (Menu[item].header || !Menu[item].emoji) return;
 			let checked = (isSelected(item) ? "checked" : "");
 			let tr = '';
 			count++;
-			if (count == comboTableWidth) {
+			if (count == Settings.COMBO_TABLE_WIDTH) {
 				tr = `</tr><tr>`;
 				count = 0;
 			}
 			buffer += `<td><input type="checkbox" id="${item}-SELECTED" name="${item}-SELECTED" value="${item}-SELECTED" ${checked}/>` +
-				`<label for="${item}-SELECTED">${menu[item].emoji} ${item}</label></td>${tr}`;
+				`<label for="${item}-SELECTED">${Menu[item].emoji} ${item}</label></td>${tr}`;
 		});
-		for (let i = count; i < comboTableWidth; i++) {
+		for (let i = count; i < Settings.COMBO_TABLE_WIDTH; i++) {
 			buffer += `<td></td>`;
 		}
-		buffer += `<tr><td colspan="${tableWidth}"><center>${buttons['save'].html}<br />${buttons['deselect_combos'].html}</center></td></tr>`;
+		buffer += `<tr><td colspan="${Settings.COMBO_TABLE_WIDTH}"><center>${buttons['save'].html}<br />${buttons['deselect_combos'].html}</center></td></tr>`;
 		buffer += `</table>`;
 		
 		document.getElementById('table').innerHTML = buffer;
@@ -448,13 +451,13 @@ function toggleCombos() {
 }
 
 function getIcon(item) {
-	if (!menu[item].fileRenameException) {
+	if (!Menu[item].fileRenameException) {
 		item = item.replace('Meal', '').replace('Combo', '').trim();
 	}
-	if (!menu[item]) return;
+	if (!Menu[item]) return;
 	let icon;
-	if (menu[item].emoji) {
-		icon = menu[item].emoji;
+	if (Menu[item].emoji) {
+		icon = Menu[item].emoji;
 	} else {
 		let fileName = `${item.toLowerCase().replace(' ', '_')}.png`;
 		icon = `<img src="images/${fileName}" width="20" height="20">`;
@@ -470,10 +473,10 @@ function clearDiscounts() {
 }
 
 function newOrder() {
-	Object.keys(menu).forEach(item => {
-		if (menu[item].header) return;
+	Object.keys(Menu).forEach(item => {
+		if (Menu[item].header) return;
 		let selected = isSelected(item);
-		if (menu[item].emoji && !selected) return;
+		if (Menu[item].emoji && !selected) return;
 		document.getElementById(`${item}-#`).innerText = 0;
 	});
 	pageReloaded = true;
@@ -482,8 +485,8 @@ function newOrder() {
 }
 
 function deselectCombos() {
-	Object.keys(menu).forEach(item => {
-		if (!menu[item].emoji) return;
+	Object.keys(Menu).forEach(item => {
+		if (!Menu[item].emoji) return;
 		let checkBox = document.getElementById(`${item}-SELECTED`);
 		if (checkBox) checkBox.checked = false;
 	});
@@ -504,12 +507,12 @@ function loadPage() {
 	}
 	let table = '<table><tr>';
 	let count = 0;
-	Object.keys(menu).forEach(item => {
-		if (menu[item].header) {
-			for (let i = count; i < tableWidth; i++) {
+	Object.keys(Menu).forEach(item => {
+		if (Menu[item].header) {
+			for (let i = count; i < Settings.MAIN_TABLE_WIDTH; i++) {
 				table += `<td></td>`;
 			}
-			table += `</tr><tr><td colspan="${tableWidth}"><center><strong><u>${item}</u></strong></center></td></tr><tr>`;
+			table += `</tr><tr><td colspan="${Settings.MAIN_TABLE_WIDTH}"><center><strong><u>${item}</u></strong></center></td></tr><tr>`;
 			count = 0;
 		} else {
 			let icon = getIcon(item);
@@ -519,35 +522,35 @@ function loadPage() {
 					comboName = comboName.replace(" Combo", "").replace(" Meal", "");
 				}
 			}
-			if (menu[item].emoji) {
+			if (Menu[item].emoji) {
 				if (!isSelected(item)) return;
 			} else {
 				let fileName = `${comboName.toLowerCase().replace(' ', '_')}.png`;
 			}
 			let qty = 0;
-			if (pageReloaded && (menu[item].emoji && isSelected(item))) {
+			if (pageReloaded && (Menu[item].emoji && isSelected(item))) {
 				let element = document.getElementById(`${item}-#`);
 				if (element) qty = document.getElementById(`${item}-#`).innerText;
 			}
 
 			table += "<td><center><button class=\"btn\" title='Add 1x " + item + "' onClick='add(\"" + item + "\")'><strong>" + icon + item + "</strong></button><br />" +
-				`Qty: <strong><span id="${item}-#">${qty}</span></strong> | $${menu[item].price} | ` +
+				`Qty: <strong><span id="${item}-#">${qty}</span></strong> | $${Menu[item].price} | ` +
 				"<i class=\"fa fa-pencilfa fa-pencil-square\" aria-hidden=\"true\" title='Manually edit " + item + " quantity' onClick='editQuantity(\"" + item + "\")'></i> " +
 				"<i class=\"fa fa-minus-circle\" aria-hidden=\"true\" title='Remove 1x " + item + "' onClick='remove(\"" + item + "\")'></i></td>";
 			count++;
-			if (count == tableWidth) {
+			if (count == Settings.MAIN_TABLE_WIDTH) {
 				table += `</tr><tr>`
 				count = 0;
 			}
-			if (menu[item].lastItem) {
-				for (let i = count; i < tableWidth; i++) {
+			if (Menu[item].lastItem) {
+				for (let i = count; i < Settings.MAIN_TABLE_WIDTH; i++) {
 					table += `<td></td>`;
 				}
 			}
 		}
 	});
 
-	table += `</tr><tr><td colspan="${tableWidth}">`
+	table += `</tr><tr><td colspan="${Settings.MAIN_TABLE_WIDTH}">`
 	Object.keys(discounts).forEach(discount => {
 		table += `<input type="checkbox" id="${discount}-DISCOUNT" name="${discount}-DISCOUNT" value="${discount}-DISCOUNT" />` +
 		`<label for="${discount}-DISCOUNT">${discounts[discount].desc}</label><br />`;
