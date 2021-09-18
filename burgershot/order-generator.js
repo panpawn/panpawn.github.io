@@ -294,7 +294,8 @@ function editQuantity(item) {
 	let elem = document.getElementById(`${item}-#`);
 	if (elem) currentQuantity = elem.innerText;
 	let quantity = prompt(`Enter quantity for ${item}:`, currentQuantity);
-	if (quantity) set(item, quantity);
+	if (!quantity) return set(item, 0);
+	set(item, quantity);
 }
 
 function getEmptyOrder() {
