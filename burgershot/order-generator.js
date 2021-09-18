@@ -443,7 +443,7 @@ function toggleCombos() {
 		}
 		buffer += `<tr><td colspan="${Settings.COMBO_TABLE_WIDTH}"><center>${buttons['save'].html}<br />${buttons['deselect_combos'].html}</center></td></tr>`;
 		buffer += `</table>`;
-		
+
 		document.getElementById('table').innerHTML = buffer;
 		document.getElementById('action-buttons').innerHTML = '';
 	} else {
@@ -554,7 +554,7 @@ function loadPage() {
 	table += `</tr><tr><td colspan="${Settings.MAIN_TABLE_WIDTH}">`
 	Object.keys(discounts).forEach(discount => {
 		table += `<input type="checkbox" id="${discount}-DISCOUNT" name="${discount}-DISCOUNT" value="${discount}-DISCOUNT" />` +
-		`<label for="${discount}-DISCOUNT">${discounts[discount].desc}</label><br />`;
+			`<label for="${discount}-DISCOUNT">${discounts[discount].desc}</label><br />`;
 	});
 	table += `</td></tr></table>`;
 
@@ -562,7 +562,7 @@ function loadPage() {
 
 	let activeButtons = `${buttons['buffer'].html}${buttons['new_order'].html}`;
 	if (!selectingCombos) activeButtons += ` | ${buttons['set_combos'].html}`;
-	document.getElementById('action-buttons').innerHTML = activeButtons;	
+	document.getElementById('action-buttons').innerHTML = activeButtons;
 
 	if (!pageReloaded) getEmptyOrder();
 
