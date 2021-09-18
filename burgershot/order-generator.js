@@ -2,6 +2,7 @@
 
 let darkmodeState;
 const tableWidth = 3;
+const default_max_cap = 100;
 
 const menu = {
 	// Combo Items:
@@ -249,7 +250,7 @@ function add(item) {
 	let elem = document.getElementById(`${item}-#`);
 	if (!elem) return alert(`ERROR: ${item} is not available to add to the cart!`);
 	let number = Number(elem.innerText);
-	let max = menu[item].max || 100;
+	let max = menu[item].max || default_max_cap;
 	if (number + 1 <= max) {
 		elem.innerText = number + 1;
 		report();
@@ -275,13 +276,9 @@ function set(item, quantity) {
 		return alert(`ERROR: ${quantity} is not a number!`);
 	}
 	quantity = Math.round(Number(quantity));
-	let max = menu[item].max;
+	let max = menu[item].max || default_max_cap;
 	if (max && quantity > max) {
 		alert(`You cannot add more than ${max}x ${item} in 1 order!`);
-		return;
-	}
-	if (quantity > 1000) {
-		alert(`You cannot set a quantity to more than 1000 due to performance issues...`);
 		return;
 	}
 	elem.innerText = quantity;
@@ -515,7 +512,6 @@ function loadPage() {
 			table += `</tr><tr><td colspan="${tableWidth}"><center><strong><u>${item}</u></strong></center></td></tr><tr>`;
 			count = 0;
 		} else {
-			let max = menu[item].max || 100;
 			let icon = getIcon(item);
 			let comboName = item;
 			if (comboName.includes("Combo") || comboName.includes("Meal")) {
