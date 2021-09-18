@@ -280,6 +280,10 @@ function set(item, quantity) {
 		alert(`You cannot add more than ${max}x ${item} in 1 order!`);
 		return;
 	}
+	if (quantity > 1000) {
+		alert(`You cannot set a quantity to more than 1000 due to performance issues...`);
+		return;
+	}
 	elem.innerText = quantity;
 	report();
 }
