@@ -254,7 +254,7 @@ function add(item) {
 	let elem = document.getElementById(`${item}-#`);
 	if (!elem) return alert(`ERROR: ${item} is not available to add to the cart!`);
 	let number = Number(elem.innerText);
-	let max = Menu[item].max || default_max_cap;
+	let max = Menu[item].max || Settings.DEFAULT_MAX_CAP;
 	if (number + 1 <= max) {
 		elem.innerText = number + 1;
 		report();
@@ -280,7 +280,7 @@ function set(item, quantity) {
 		return alert(`ERROR: ${quantity} is not a number!`);
 	}
 	quantity = Math.round(Number(quantity));
-	let max = Menu[item].max || default_max_cap;
+	let max = Menu[item].max || Settings.DEFAULT_MAX_CAP;
 	if (max && quantity > max) {
 		alert(`You cannot add more than ${max}x ${item} in 1 order!`);
 		return;
@@ -570,7 +570,4 @@ function loadPage() {
 
 	let checkboxes = document.querySelectorAll('input[type="checkbox"], input[type="radio"]');
 	checkboxes.forEach(i => i.addEventListener('click', report, false));
-
-	let numbers = document.querySelectorAll('input[type="number"]');
-	numbers.forEach(i => i.addEventListener('click', report, false));
 }
