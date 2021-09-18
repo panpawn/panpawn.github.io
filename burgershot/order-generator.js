@@ -268,6 +268,30 @@ function remove(item) {
 	}
 }
 
+function set(item, quantity) {
+	let elem = document.getElementById(`${item}-#`);
+	if (!elem) return alert(`ERROR: ${item} is not available in the cart!`);
+	if (isNaN(Number(quantity))) {
+		return alert(`ERROR: ${quantity} is not a number!`);
+	}
+	quantity = Math.round(Number(quantity));
+	let max = menu[item].max;
+	if (max && quantity > max) {
+		alert(`You cannot add more than ${max}x ${item} in 1 order!`);
+		return;
+	}
+	elem.innerText = quantity;
+	report();
+}
+
+function editQuantity(item) {
+	let currentQuantity = 0;
+	let elem = document.getElementById(`${item}-#`);
+	if (elem) currentQuantity = elem.innerText;
+	let quantity = prompt(`Enter quantity for ${item}:`, currentQuantity);
+	if (quantity) set(item, quantity);
+}
+
 function getEmptyOrder() {
 	let buffer = [];
 	buffer.push('<img src="images/bs-logo.svg" width="45%">');
@@ -508,6 +532,7 @@ function loadPage() {
 
 			table += "<td><center><button class=\"btn\" title='Add 1x " + item + "' onClick='add(\"" + item + "\")'><strong>" + icon + item + "</strong></button><br />" +
 				`Qty: <strong><span id="${item}-#">${qty}</span></strong> | $${menu[item].price} | ` +
+				"<i class=\"fa fa-pencilfa fa-pencil-square\" aria-hidden=\"true\" title='Manually edit " + item + " quantity' onClick='editQuantity(\"" + item + "\")'></i> " +
 				"<i class=\"fa fa-minus-circle\" aria-hidden=\"true\" title='Remove 1x " + item + "' onClick='remove(\"" + item + "\")'></i></td>";
 			count++;
 			if (count == tableWidth) {
