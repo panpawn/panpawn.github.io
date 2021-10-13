@@ -162,7 +162,7 @@ const Menu = {
 		items: ["Bleeder"],
 	},
 	"Meat Free": {
-		price: 30,
+		price: 42,
 		items: ["Meat Free"],
 	},
 	"Water": {
