@@ -3,6 +3,9 @@
 let darkmodeState;
 
 const header = `<table><tr style="font-weight: bold"><td><h1>B</h1></td><td><h1>I</h1></td><td><h1>N</h1></td><td><h1>G</h1></td><td><h1>O</h1></td></tr>`;
+const saveButton = "<button class=\"btn\" onClick='saveCurrentBoard()'><i class=\"fa fa-floppy-o\" aria-hidden=\"true\"></i> Save Board</button>";
+
+const date = new Date();
 
 const cells = [
 	"13A",
@@ -56,7 +59,7 @@ const cells = [
 	"Vault/Paleto right after each other",
 	"99A M+ w/ no motor unit on duty",
 	"VIN scratch used for heist",
-	"Bike unit 13B",
+	"13B with no context",
 	"2 groups fight for jewlery",
 	"Gets donowalled on radio",
 	"99A turns into OIS",
@@ -71,6 +74,9 @@ const cells = [
 	"Robs store, leaves, then comes back",
 	"Someone mentions mandatory PD yoga",
 	"VCB in under 30 seconds",
+	"Uses registered firearm in robbery",
+	"Crim uses own car in robbery",
+	"S class parked outside robbery",
 ];
 
 function generate() {
@@ -122,14 +128,75 @@ function toggle(cell) {
 	let element = document.getElementById(`cell-${cell}`);
 	if (!element) return;
 	element.classList.toggle('selected-bingo');
+	table = document.getElementById('bingo_table').innerHTML;
+}
+
+function toggle2() {
+	return alert("ERROR: You cannot edit an old board! Start a new board to start playing.");
 }
 
 function reloadPage() {
 	pageReloaded = true;
 	loadPage();
 }
+function replaceAll(string, search, replace) {
+	return string.split(search).join(replace);
+}
 
+let table = header;
+
+function saveCurrentBoard() {
+	let name = prompt(`Enter name to save board as`, `untitled board`);
+	let cached = localStorage.getItem(`board-${name}`);
+	if (!cached || cached == 'undefined' || cached === 'false') {
+		let tableToSave = replaceAll(table, 'toggle(', 'toggle2(');
+		name = name.trim();
+		name += ` (${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()})`;
+		localStorage.setItem(`board-${name}`, tableToSave);
+		alert(`Board saved!`);
+	} else {
+		alert(`ERROR: A board named "${name}" has already been saved!`);
+		return;
+	}
+}
+
+function showSavedBoards() {
+	let cached = Object.keys(localStorage);
+	let buffer = "<button class='btn' onClick='mainBoard()'><i class=\"fa fa-arrow-left\" aria-hidden=\"true\"></i> Back</button><br /><br />";
+	let matches = 0;
+	cached.forEach(key => {
+		if (!key.startsWith(`board-`)) return;
+		matches++;
+		key = key.replace('board-', '');
+		buffer += "- <button class='btn' onClick='showSaved(\"" + key + "\")'>" + key + "</button><br />";
+	});
+	if (!matches) buffer += `<i>(no saved boards <i class="fa fa-frown-o" aria-hidden="true"></i>)</i>`;
+	document.getElementById('bingo_table').innerHTML = buffer;
+	document.getElementById('save_button').innerHTML = '';
+}
+
+function mainBoard() {
+	document.getElementById('bingo_table').innerHTML = table;
+	document.getElementById('save_button').innerHTML = saveButton;
+}
+
+function deleteSaved(board) {
+	localStorage.removeItem(`board-${board}`);
+	alert(`Board "${board} has been deleted!`);
+	showSavedBoards();
+}
+
+function showSaved(board) {
+	let savedBoard = localStorage.getItem(`board-${board}`);
+	if (savedBoard) {
+		
+		let buffer = "<h1>" + board + " | <i onClick='deleteSaved(\"" + board + "\")' class=\"fa fa-trash-o\" aria-hidden=\"true\"></i></h1>";
+		document.getElementById('bingo_table').innerHTML = `${buffer}${savedBoard}`;
+		document.getElementById('save_button').innerHTML = '';
+	}
+}
 function loadPage() {
+	table = header;
 	if (!pageReloaded) {
 		let darkmodeSetting = localStorage.getItem("darkmode");
 		if (!darkmodeSetting || darkmodeSetting === 'undefined' || darkmodeSetting === 'false') {
@@ -143,7 +210,7 @@ function loadPage() {
 		}
 	}
 	let randCells = shuffle(cells);
-	let table = header;
+	
 	let totalCount = 0;
 	let rowCount = 0;
 	for (let i = 0; i < 25; i++) {
@@ -162,8 +229,10 @@ function loadPage() {
 			if ((i + 1) % 5 == 0 ) table += `</tr><tr>`;
 		}
 	}
+	table += '</table>';
 
 	document.getElementById('bingo_table').innerHTML = table;
+	document.getElementById('save_button').innerHTML = saveButton;
 	toggle("FREE SPACE");
 
 	let inputs = document.querySelectorAll('input[type="text"], input[type="number"], textarea');
