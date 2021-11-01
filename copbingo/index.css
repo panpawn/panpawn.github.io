@@ -41,9 +41,10 @@ body {
 	border-collapse: collapse;
 }
 td {
-  border: 1px solid black;
-  padding-top: 0px;
-  padding-bottom: 0px;
+	border: 1px solid black;
+	padding-top: 0px;
+	padding-bottom: 0px;
+    width: 20%;
 }
 
 table {
