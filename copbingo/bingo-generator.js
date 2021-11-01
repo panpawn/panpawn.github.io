@@ -58,6 +58,14 @@ const cells = [
 	"VIN scratch used for heist",
 	"Bike unit 13B",
 	"2 groups fight for jewlery",
+	"Gets donowalled on radio",
+	"99A turns into OIS",
+	"Crim asks cops to flip them",
+	"Crim tells cop to stop being weird",
+	"Secondary in chase PITs primary",
+	">guy from apartments gave me the car",
+	"Car swaps onto a motorcycle",
+	"Crim asks for time served",
 ];
 
 function generate() {
