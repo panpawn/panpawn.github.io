@@ -69,6 +69,8 @@ const cells = [
 	"Cop tries to pull over a local",
 	"911s asking if they have a warrant",
 	"Robs store, leaves, then comes back",
+	"Someone mentions mandatory PD yoga",
+	"VCB in under 30 seconds",
 ];
 
 function generate() {
