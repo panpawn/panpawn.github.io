@@ -80,6 +80,8 @@ const cells = [
 	"Bike(s) go down tunnel station",
 	"Crim says they know cop SOPs",
 	"Lawyer requested for therapy",
+	"You only caught me because of scuff!",
+	"Cone stalls car",
 ];
 
 function generate() {
