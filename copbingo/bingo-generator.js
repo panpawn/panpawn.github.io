@@ -48,6 +48,16 @@ const cells = [
 	"All this for a D contract?",
 	"Local runs over crim",
 	"Car swap apartments wall",
+	"Any HC around for a raid?",
+	"Someone saves over MDW report",
+	"Class 2 fire Alta apartments",
+	"Processing while 13A pops",
+	"Great Ocean Fleeca w/ no hostage",
+	"Vault/Paleto right after each other",
+	"99A M+ w/ no motor unit on duty",
+	"VIN scratch used for heist",
+	"Bike unit 13B",
+	"2 groups fight for jewlery",
 ];
 
 function generate() {
