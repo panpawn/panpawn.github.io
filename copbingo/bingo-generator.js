@@ -66,6 +66,9 @@ const cells = [
 	">guy from apartments gave me the car",
 	"Car swaps onto a motorcycle",
 	"Crim asks for time served",
+	"Cop tries to pull over a local",
+	"911s asking if they have a warrant",
+	"Robs store, leaves, then comes back",
 ];
 
 function generate() {
