@@ -77,6 +77,9 @@ const cells = [
 	"Uses registered firearm in robbery",
 	"Crim uses own car in robbery",
 	"S class parked outside robbery",
+	"Bike(s) go down tunnel station",
+	"Crim says they know cop SOPs",
+	"Lawyer requested for therapy",
 ];
 
 function generate() {
