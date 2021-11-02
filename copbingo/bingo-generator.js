@@ -84,6 +84,7 @@ const cells = [
 	"Cone stalls car",
 	"Cop gets PIT'd by another cop",
 	"Cop gets C4'd",
+	"Suspect refuses medical",
 ];
 
 function generate() {
