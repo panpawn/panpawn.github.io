@@ -94,6 +94,7 @@ const cells = [
 	"Non-security loitering MRPD", 
 	"Cop says they will be around more",
 	"Air-1 head pops",
+	"IS YOUR BODYCAM ON?",
 ];
 
 function generate() {
