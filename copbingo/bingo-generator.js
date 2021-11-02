@@ -14,6 +14,7 @@ const cells = [
 	"78s w/ no location",
 	"The whold PD for this?",
 	"Flees from traffic stop",
+	"Flees from felony stop",
 	"STOP RAMMING!",
 	"Jewelery store minutes after 1hr",
 	"Free passage no spikes",
@@ -90,6 +91,8 @@ const cells = [
 	"Crim gets hostage during chase",
 	"Random checks cop trunk/glovebox",
 	"VCB while Air-1 refueling",
+	"Non-security loitering MRPD", 
+	"Cop says they will be around more",
 ];
 
 function generate() {
