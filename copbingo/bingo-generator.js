@@ -162,9 +162,10 @@ function saveCurrentBoard() {
 	if (!cached || cached == 'undefined' || cached === 'false') {
 		let tableToSave = replaceAll(table, 'toggle(', 'toggle2(');
 		name = name.trim();
+		if (name.length > 30) return alert("ERROR: Name of saved board cannot be more than 30 characters long.");
 		name += ` (${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()})`;
 		localStorage.setItem(`board-${name}`, tableToSave);
-		alert(`Board saved!`);
+		alert(`Board "${name}" saved!`);
 	} else {
 		alert(`ERROR: A board named "${name}" has already been saved!`);
 		return;
@@ -201,7 +202,7 @@ function showSaved(board) {
 	let savedBoard = localStorage.getItem(`board-${board}`);
 	if (savedBoard) {
 		
-		let buffer = "<h1>" + board + " | <i onClick='deleteSaved(\"" + board + "\")' class=\"fa fa-trash-o\" aria-hidden=\"true\"></i></h1>";
+		let buffer = "<strong>" + board + " <button class=\"btn\" onClick='deleteSaved(\"" + board + "\")' title=\"Delete this saved board\"><i  class=\"fa fa-trash-o\" aria-hidden=\"true\"></i> Delete</button></strong><br /><br />";
 		document.getElementById('bingo_table').innerHTML = `${buffer}${savedBoard}`;
 		document.getElementById('save_button').innerHTML = '';
 	}
