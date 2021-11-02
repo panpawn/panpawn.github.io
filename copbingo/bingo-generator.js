@@ -31,7 +31,7 @@ const cells = [
 	"Someone steals cop car",
 	"Guy wants to roll for jail time",
 	"Suspect argues during felony stop",
-	"MPX set to single fire mistakenly",
+	"MPX set to wrong mode mistakenly",
 	"Forgot to turn watch/compass on",
 	"ON MY 20!",
 	"Crim demands bench trial",
@@ -82,6 +82,8 @@ const cells = [
 	"Lawyer requested for therapy",
 	"You only caught me because of scuff!",
 	"Cone stalls car",
+	"Cop gets PIT'd by another cop",
+	"Cop gets C4'd",
 ];
 
 function generate() {
