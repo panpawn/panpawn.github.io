@@ -93,6 +93,7 @@ const cells = [
 	"VCB while Air-1 refueling",
 	"Non-security loitering MRPD", 
 	"Cop says they will be around more",
+	"Air-1 head pops",
 ];
 
 function generate() {
