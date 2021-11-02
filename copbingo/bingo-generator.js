@@ -7,6 +7,8 @@ const saveButton = "<button class=\"btn\" onClick='saveCurrentBoard()'><i class=
 
 const date = new Date();
 
+const tdInlineStyle = `user-select: none; cursor: pointer;`;
+
 const cells = [
 	"13A",
 	"78s w/ no location",
@@ -82,8 +84,8 @@ const cells = [
 	"Lawyer requested for therapy",
 	"You only caught me because of scuff!",
 	"Cone stalls car",
-	"Cop gets PIT'd by another cop",
-	"Cop gets C4'd",
+	"Cop gets PITd by another cop",
+	"Cop gets C4d",
 	"Suspect refuses medical",
 ];
 
@@ -226,11 +228,11 @@ function loadPage() {
 		totalCount++;
 		if (totalCount == 13) {
 			selected = "FREE SPACE";
-			table += "<td id=\"cell-" + selected + "\" onClick='toggle(\"" + selected + "\")'>"
+			table += "<td id=\"cell-" + selected + "\" style='" + tdInlineStyle + "' onClick='toggle(\"" + selected + "\")'>"
 			table += `${selected}`;
 			table += `</td>`;
 		} else {
-			table += "<td id=\"cell-" + selected + "\" onClick='toggle(\"" + selected + "\")'>"
+			table += "<td id=\"cell-" + selected + "\" style='" + tdInlineStyle + "' onClick='toggle(\"" + selected + "\")'>"
 			table += selected;
 			table += `</td>`;
 
