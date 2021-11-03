@@ -21,7 +21,6 @@ const cells = [
 	"An intercepter for this?",
 	"Air-1 for this?",
 	">goes to shoot empty tazer",
-	"Amelia 13B",
 	"Cop says fucka ladda 13B",
 	"911 asking for job",
 	"311 asking for job",
@@ -58,8 +57,9 @@ const cells = [
 	"Someone saves over MDW report",
 	"Class 2 fire Alta apartments",
 	"Processing while 13A pops",
+	"Report writing while 13A pops",
 	"Great Ocean Fleeca w/ no hostage",
-	"Vault/Paleto right after each other",
+	"Vault/Paleto one after another",
 	"99A M+ w/ no motor unit on duty",
 	"VIN scratch used for heist",
 	"13B with no context",
@@ -85,7 +85,7 @@ const cells = [
 	"Lawyer requested for therapy",
 	"You only caught me because of scuff!",
 	"Cone stalls car",
-	"Cop gets PITd by another cop",
+	"Cop PITs cop",
 	"Cop gets C4d",
 	"Suspect refuses medical",
 	"Crim gets hostage during chase",
@@ -95,6 +95,7 @@ const cells = [
 	"Cop says they will be around more",
 	"Air-1 head pops",
 	"IS YOUR BODYCAM ON?",
+	"Weed planted in open field",
 ];
 
 function generate() {
