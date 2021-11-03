@@ -69,7 +69,7 @@ const cells = [
 	"Crim asks cops to flip them",
 	"Crim tells cop to stop being weird",
 	"Secondary in chase PITs primary",
-	">guy from apartments gave me the car",
+	">guy from apartments gave car",
 	"Car swaps onto a motorcycle",
 	"Crim asks for time served",
 	"Cop tries to pull over a local",
