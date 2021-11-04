@@ -96,6 +96,7 @@ const cells = [
 	"Air-1 head pops",
 	"IS YOUR BODYCAM ON?",
 	"Weed planted in open field",
+	"Cop 13A minutes before storm",
 ];
 
 function generate() {
