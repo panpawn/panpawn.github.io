@@ -40,7 +40,7 @@ const Menu = {
 	},
 	"Glock 18C": {
 		noIcon: true,
-		price: 10000,
+		price: 6000,
 		items: [
 			...rep("Aluminium", 80),
 			...rep("Plastic", 70),
@@ -216,7 +216,9 @@ function getOccurrence(array, value) {
 	return array.filter((v) => (v === value)).length;
 }
 
+let totalItems = 0;
 function formatItems(items) {
+	totalItems = 0;
 	let newArray = [];
 	let imageIcons = '';
 
@@ -224,7 +226,10 @@ function formatItems(items) {
 		let occ = getOccurrence(items, item);
 		let imageName = item.toLowerCase().replace(' ', '_');
 		let imageIcon = '';//`<img src="images/${imageName}.png" title="${occ}x ${item}" width="30" height="30"> `
-		if (occ > 0) newArray.push(`- ${occ}x ${imageIcon}${item}`);
+		if (occ > 0) {
+			newArray.push(`- ${occ}x ${imageIcon}${item}`);
+			totalItems += occ;
+		}
 	});
 
 	return newArray;
@@ -280,11 +285,16 @@ function editQuantity(item) {
 
 function getEmptyOrder() {
 	let buffer = [];
+	buffer.push("<strong>MATERIALS NEEDED:</strong>");
+	buffer.push("");
+	buffer.push("");
+	buffer.push(`<strong>TOTAL MATERIALS:</strong> <span class="blue">0x</span>`);
+	buffer.push("");
+	buffer.push("");
 	buffer.push("<strong>ITEMS ORDERED:</strong>");
 	buffer.push("");
 	buffer.push("");
-	buffer.push("");
-	buffer.push(`<strong>TOTAL:</strong> <span class="green">$0</span>`);
+	buffer.push(`<strong>TOTAL MONEY:</strong> <span class="green">$0</span>`);
 	document.getElementById('reportBody').innerHTML = buffer.join("\n");
 }
 
@@ -299,6 +309,7 @@ function report() {
 	let total = 0;
 
 	let allItems = [];
+	let allItemsOrdered = [];
 
 	Object.keys(Menu).forEach(item => {
 		if (Menu[item].header) return;
@@ -314,18 +325,25 @@ function report() {
 		total += price * quantity;
 		if (quantity) {
 			let count = 0;
+			if (quantity >= 1) allItemsOrdered.push(`- ${quantity}x ${item}`);
 			while (count < quantity) {
 				count++;
 				allItems = allItems.concat(items);
 			}
 		}
 	});
-	buffer.push("<strong>ITEMS ORDERED:</strong>");
+	buffer.push("<strong>MATERIALS NEEDED:</strong>");
 	let formatted = formatItems(allItems.sort());
 	buffer.push(formatted.join('\n'));
 	buffer.push("");
+	buffer.push(`<strong>TOTAL MATERIALS:</strong> <span class="blue">${totalItems}x</span>`);
 	buffer.push("");
-	buffer.push(`<strong>TOTAL:</strong> <span class="green">$${total}</span>`);
+	buffer.push("");
+	buffer.push("<strong>ITEMS ORDERED:</strong>");
+	if (allItemsOrdered.length) buffer.push(allItemsOrdered.join("\n"));
+	buffer.push("");
+	buffer.push("");
+	buffer.push(`<strong>TOTAL MONEY:</strong> <span class="green">$${total}</span>`);
 
 	return document.getElementById('reportBody').innerHTML = buffer.join("\n");
 }
