@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>90 Incident Generator</title>
+	<link rel="shortcut icon" href="images/favicon.ico" />
+	<link rel="stylesheet" href="index.css" />
+	<link rel="stylesheet" href="../style/font-awesome-4.7.0/css/font-awesome.min.css"> </head>
+
+<body onLoad="loadDarkmode()">
+	<div id="form">
+		<div class="form-group">
+			<span style="font-weight: bold;">90 Incident Generator</span> | 
+			<input type="checkbox" id="darkmode" name="darkmode" value="darkmode" />
+			<label for="darkmode">Darkmode</label>
+			<br />
+			<label class="inline" title="(You only have to do this once - it will cache)" style="border-bottom: 1px dotted #000; text-decoration: none;">Your callsign/name:</label>
+			<input type="text" id="yourself" name="yourself" placeholder="TF-508 A. Swanson" /> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<div class="popup" id="copyReport">
+				<div class="btn" title="Copy the generated report to your clipboard">Copy Report</div> <span class="popuptext" id="myPopup">Report copied!</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label>Scene Command:</label>
+			<input type="text" id="scenecommand" name="scenecommand">
+		</div>
+		<div class="form-group">
+			<label>Negotiator:</label>
+			<input type="text" id="negotiator" name="negotiator">
+			<div id="officerslist"></div>
+		</div>
+		<div class="form-group">
+			<label>Who stayed back for hostage:</label>
+			<input type="text" id="hostagestayer" name="hostagestayer">
+		</div>
+		<div class="form-group">
+			<label>Robbery:</label>
+			<select id="robberytype">
+				<option value="Jewlery Store" selected>Jewlery Store</option>
+				<option value="Fleeca Bank">Fleeca Bank</option>
+				<option value="24/7 Store">24/7 Store</option>
+			</select>
+			<div id="whatFleeca">
+				Which Fleeca: 
+				<select id="specificBank">
+					<option value="Legion Square">Legion Square</option>
+					<option value="Burton">Burton</option>
+					<option value="Rockford Hills (Lifeinvader)">Rockford Hills (Lifeinvader)</option>
+					<option value="Alta">Alta</option>
+					<option value="Great Ocean">Great Ocean</option>
+					<option value="Route 68">Route 68</option>
+				</select>
+			</div>
+			<div id="whatStore">
+				Which 24/7:
+				<select id="specificStore">
+					<option value="Strawberry 24/7">Strawberry 24/7</option>
+					<option value="Davis LTD 24/7">Davis LTD 24/7</option>
+					<option value="Murrieta Heights Rob's Liquor">Murrieta Heights Rob's Liquor</option>
+					<option value="Little Seoul LTD 24/7">Little Seoul LTD 24/7</option>
+					<option value="Vespucci Canals Rob's Liquor">Vespucci Canals Rob's Liquor</option>
+					<option value="Morningwood Rob's Liquor">Morningwood Rob's Liquor</option>
+					<option value="Mirror Park LTD 24/7">Mirror Park LTD 24/7</option>
+					<option value="Downtown Vinewood 24/7">Downtown Vinewood 24/7</option>
+					<option value="Tataviam Mountains 24/7">Tataviam Mountains 24/7</option>
+					<option value="Banham Canyon Rob's Liquor">Banham Canyon Rob's Liquor</option>
+					<option value="Banham Canyon 24/7">Banham Canyon 24/7</option>
+					<option value="Richman Glen LTD 24/7">Richman Glen LTD 24/7</option>
+					<option value="Chumash 24/7">Chumash 24/7</option>
+					<option value="Harmony 24/7">Harmony 24/7</option>
+					<option value="Grand Senora Rob's Liquor">Grand Senora Rob's Liquor</option>
+					<option value="Grand Senora 24/7</">Grand Senora 24/7</option>
+					<option value="Grapeseed LTD 24/7">Grapeseed LTD 24/7</option>
+					<option value="Mount Chilliad 24/7">Mount Chilliad 24/7</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label>Numbers:</label>
+			Robbers on inside: 
+			<select id="robbersinside">
+				<option>1</option>
+				<option selected>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+				<option>6</option>
+			</select><br />
+			Robbers on outside:
+			<select id="robbersoutside">
+				<option selected>0</option>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+				<option>6</option>
+			</select><br />
+			Hostages:
+			<select id="hostages">
+				<option>0</option>
+				<option selected>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+				<option>6</option>
+				<option>7</option>
+				<option>8</option>
+				<option>9</option>
+				<option>10</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label>Demands:</label>
+			<input type="checkbox" id="fpassage" name="fpassage" value="fpassage" checked/>
+			<label for="fpassage">free passage</label><br />
+			<input type="checkbox" id="nspikes" name="nspikes" value="nspikes" checked/>
+			<label for="nspikes">no spike strips</label><br />
+			<input type="checkbox" id="nair" name="nair" value="nair" />
+			<label for="nair">no helicopter</label><br />
+			<input type="checkbox" id="nspeed" name="nspeed" value="nspeed" />
+			<label for="nspeed">no speed unit</label><br />
+			Other:<br />
+			<textarea id="otherdemands" name="otherdemands" placeholder="blah\nblah2"></textarea>
+		</div>
+		<div class="form-group">
+			<label>Vehicle Information:</label>
+			Description: <input type="text" id="vehicledesc" name="vehicledesc"><br />
+			Plate: <input type="text" id="vehicleplate" name="vehicleplate">
+		</div>
+		<div class="form-group">
+			<label>Medical Attention...</label>
+			<select id="medicalattention">
+				<option>Was requested by multiple suspects</option>
+				<option>Was requested by one suspect</option>
+				<option selected>Was not requested or needed</option>
+			</select>
+		</div>
+		<div clsas="form-group">
+			<label>Processed at...</label><br />
+			<select id="processedat">
+				<option selected>MRPD</option>
+				<option>Sandy Shores Sheriff's Office</option>
+				<option>Davis PD</option>
+				<option>Paleto PD</option>
+				<option>Highway PD</option>
+				<option>Del Perro Pier PD</option>
+				<option>Rockford PD</option>
+			</select>
+		</div>
+	</div>
+	<textarea class="wide" id="reportBody">[report will automatically generate as you fill out the form to the left]&#10;&#10;(Note: the generated report will be editable, but once you edit it you can no longer update it based on the form)</textarea>
+	<!--<pre id="reportBody">[report will automatically generate as you fill out the form to the left]</pre> -->
+	
+	<script src="reports.js"></script>
+</body>
+
+</html>
