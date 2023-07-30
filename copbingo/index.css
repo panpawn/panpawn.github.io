@@ -25,7 +25,7 @@ body {
 }
 
 .selected-bingo {
-	background-color: #d8392b;
+	background-color: #8ED7FF;
 }
 
 #form, #reportBody {
@@ -299,7 +299,8 @@ body.dark-theme .chip {
 }
 
 body.dark-theme .selected-bingo {
-	background-color: #ef4333;
+	background-color: #8ED7FF;
+	color: black;
 }
 
 body.dark-theme pre {
